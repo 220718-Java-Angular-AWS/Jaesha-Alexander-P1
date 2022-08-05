@@ -15,11 +15,11 @@ public class SignUpMenu extends View{
 
     private Users user;
 
-    SignUpMenu()
-    {
+    public SignUpMenu() {
         viewName = "SignUpMenu";
         viewManager = ViewManager.getViewManager();
     }
+    
     public void renderView() {
         scanner = new Scanner(System.in);
 

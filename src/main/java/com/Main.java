@@ -1,7 +1,6 @@
 package com;
 
-import com.consoles.MainMenu;
-import com.consoles.ViewManager;
+import com.consoles.*;
 import com.daos.ExpenseReimbursementsDAO;
 import com.daos.UserDAO;
 import com.pojos.ExpenseReimbursements;
@@ -154,16 +153,12 @@ public class Main {
         ViewManager viewManager = ViewManager.getViewManager();
 
         viewManager.registerView(new MainMenu());
+        viewManager.registerView(new AdminMenu());
+        viewManager.registerView(new CancelMenu());
+        viewManager.registerView(new EditMenu());
+        viewManager.registerView(new LoginMenu());
+        viewManager.registerView(new SignUpMenu());
 
-        // testing mainmenu
-        viewManager.navigate("MainMenu");
-        viewManager.navigate("SignUpMenu");
-        viewManager.navigate("LoginMenu");
-        viewManager.navigate("CancelMenu");
-        viewManager.navigate("EditMenu");
-        viewManager.navigate("SubmitMenu");
-        viewManager.navigate("UserMenu");
-        viewManager.navigate("ViewMenu");
 
 
 
