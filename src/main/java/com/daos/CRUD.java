@@ -5,7 +5,7 @@ import com.sun.org.apache.xpath.internal.operations.Bool;
 import java.util.List;
 
 public interface CRUD<T> {
-    Boolean create(T t);
+    boolean create(T t);
 
     List<T> readAll();
 

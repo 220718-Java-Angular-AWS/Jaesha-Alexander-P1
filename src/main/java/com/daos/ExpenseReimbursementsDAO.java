@@ -10,51 +10,63 @@ import java.util.List;
 
 public class ExpenseReimbursementsDAO implements CRUD<ExpenseReimbursements>  {
     Connection connection;
+
     public ExpenseReimbursementsDAO() {
         this.connection = ConnectionManagerService.getConnection();
     }
 
 
     // adds expense to the database
-    public Boolean create(ExpenseReimbursements expenseReimbursements) {
-        Boolean createSuccess = false;
+    public boolean create(ExpenseReimbursements expenseReimbursements) {
+        boolean complete = false;
         String sql = "INSERT INTO expense_reimbursements (ex_user_name, ex_date, details, amount, ex_status ) VALUES (?,?,?,?,?)";
 
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
 
-            createSuccess = ps.execute();
+            ps.setString(1, expenseReimbursements.getExpenseUsername());
+            ps.setString(2, expenseReimbursements.getExpenseDate());
+            ps.setString(3, expenseReimbursements.getExpenseDetails());
+            ps.setDouble(4, expenseReimbursements.getExpenseAmount());
+            ps.setString(5, expenseReimbursements.getExpenseStatus());
+
+            complete = ps.execute();
+
+
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return complete;
 
-
-        return createSuccess;
     }
 
 
 
-    public ExpenseReimbursements read(int index ) {
-        ExpenseReimbursements er = new ExpenseReimbursements();;
+    public ExpenseReimbursements read(ExpenseReimbursements er ) {
 
-        String sql = "SELECT * FROM expense_reimbursements WHERE e.ex_id = ?";
+        String sql = "SELECT * FROM expense_reimbursements WHERE ex_user_name = ? AND ex_date = ? AND details = ? AND amount = ? AND ex_status = ?";
 
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
 
-            ps.setInt(1,index);
+            ps.setString(1,er.getExpenseUsername());
+            ps.setString(2, er.getExpenseDate());
+            ps.setString(3, er.getExpenseDetails());
+            ps.setDouble(4,er.getExpenseAmount());
+            ps.setString(5,er.getExpenseStatus());
 
             ResultSet querySet = ps.executeQuery();
 
             if(querySet.next())
             {
+
                 er.setExpenseUsername(querySet.getString("ex_user_name"));
                 er.setExpenseDate(querySet.getString("ex_date"));
                 er.setExpenseDetails(querySet.getString("details"));
                 er.setExpenseAmount(querySet.getDouble("amount"));
                 er.setExpenseStatus(querySet.getString("ex_status"));
                 er.setExpenseID(querySet.getInt("ex_id"));
-
 
             }
         } catch (SQLException e) {
@@ -66,6 +78,8 @@ public class ExpenseReimbursementsDAO implements CRUD<ExpenseReimbursements>  {
 
 
     }
+
+
 
 
 
@@ -108,9 +122,10 @@ public class ExpenseReimbursementsDAO implements CRUD<ExpenseReimbursements>  {
     public Boolean update(ExpenseReimbursements expenseReimbursements) {
         Boolean updateComplete = false;
 
-        String sql = "UPDATE expense_reimbursements e SET e.ex_id = ?, e.ex_user_name = ?,e.ex_date = ?, e.details = ?, e.amount = ?, e.ex_status = ?,  WHERE e.ex_user_name = ?";
+        String sql = "UPDATE expense_reimbursements SET ex_id = ?, ex_user_name = ?, ex_date = ?, details = ?, amount = ?, ex_status = ?  WHERE ex_user_name = ? AND ex_id = ?";
 
         try {
+
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, expenseReimbursements.getExpenseID());
             ps.setString(2,expenseReimbursements.getExpenseUsername());
@@ -119,6 +134,7 @@ public class ExpenseReimbursementsDAO implements CRUD<ExpenseReimbursements>  {
             ps.setDouble(5,  expenseReimbursements.getExpenseAmount());
             ps.setString(6,expenseReimbursements.getExpenseStatus());
             ps.setString(7,expenseReimbursements.getExpenseUsername());
+            ps.setInt(8, expenseReimbursements.getExpenseID());
 
             updateComplete = ps.execute();
 
@@ -136,12 +152,11 @@ public class ExpenseReimbursementsDAO implements CRUD<ExpenseReimbursements>  {
     // delete reimbursement
     public Boolean delete(ExpenseReimbursements expenseReimbursements) {
         Boolean deleteSuccess = false;
-        String sql = "DELETE FROM expense_reimbursements e WHERE e.user_name = ?";
+        String sql = "DELETE FROM expense_reimbursements WHERE ex_id = ?";
 
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, expenseReimbursements.getExpenseUsername());
-
+            ps.setInt(1, expenseReimbursements.getExpenseID());
             deleteSuccess = ps.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);

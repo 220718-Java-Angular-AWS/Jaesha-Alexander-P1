@@ -33,6 +33,14 @@ public class Users {
         this.password = password;
         this.status = status;
     }
+    public Users(String firstname, String lastname, String username, String password, String status, int id ) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.username = username;
+        this.password = password;
+        this.status = status;
+        this.user_id = id;
+    }
 
     public String getFirstname() {
         return firstname;
@@ -82,7 +90,15 @@ public class Users {
         this.user_id = user_id;
     }
 
+    @Override
+    public String toString() {
+        return "ID: "+ getUser_id() + " First Name: " + getFirstname() + " Last Name: " + getLastname() + " User Name: " + getUsername() + " Password:" + getPassword() + " Status: " + getStatus();
 
-
+    }
 }
+
+//this.lastname = lastname;
+//        this.username = username;
+//        this.password = password;
+//        this.status = status;
 

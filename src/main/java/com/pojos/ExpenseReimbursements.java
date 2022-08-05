@@ -9,7 +9,7 @@ public class ExpenseReimbursements {
     private String expenseDate;
     private String expenseDetails;
     private double expenseAmount;
-    private String expenseStatus = "Pending";
+    private String expenseStatus;
 
     public ExpenseReimbursements() {
     }
@@ -18,6 +18,7 @@ public class ExpenseReimbursements {
         this.expenseDate = expenseDate;
         this.expenseDetails = expenseDetails;
         this.expenseAmount = expenseAmount;
+        this.expenseStatus = "Pending";
 
     }
 

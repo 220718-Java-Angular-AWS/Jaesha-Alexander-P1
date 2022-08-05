@@ -1,5 +1,6 @@
 package com.consoles;
 
+import java.lang.reflect.Type;
 import java.util.Scanner;
 
 public class MainMenu extends View{
@@ -15,7 +16,7 @@ public class MainMenu extends View{
     public void renderView() {
         scanner = new Scanner(System.in);
 
-        System.out.println("============com.pojos.Main Menu============");
+        System.out.println("============ Main Menu============");
 
         System.out.println("Enter the 'S' for sign up or 'L' for log in ");
         System.out.println("(S) Sign Up /n (L) Log in /n (Q) Quit");
@@ -25,16 +26,17 @@ public class MainMenu extends View{
 
 
         // based on letter go to new console
-        if(inp == "S" || inp == "s")
+        if(inp.equals("S") || inp.equals("s"))
         {
                 viewManager.navigate("SignUpMenu");
+                viewManager.render();
 
         }
-        else if(inp == "L" || inp == "l")
+        else if(inp.equals("L") || inp.equals("l") )
         {
             viewManager.navigate("LoginMenu");
         }
-        else if(inp == "Q" || inp == "q")
+        else if(inp.equals("Q")  || inp.equals("q") )
         {
             viewManager.quit();
         }
