@@ -17,8 +17,8 @@ public class ExpenseReimbursementsDAO implements CRUD<ExpenseReimbursements>  {
 
 
     // adds expense to the database
-    public boolean create(ExpenseReimbursements expenseReimbursements) {
-        boolean complete = false;
+    public void create(ExpenseReimbursements expenseReimbursements) {
+//        boolean complete = false;
         String sql = "INSERT INTO expense_reimbursements (ex_user_name, ex_date, details, amount, ex_status ) VALUES (?,?,?,?,?)";
 
         try {
@@ -30,14 +30,14 @@ public class ExpenseReimbursementsDAO implements CRUD<ExpenseReimbursements>  {
             ps.setDouble(4, expenseReimbursements.getExpenseAmount());
             ps.setString(5, expenseReimbursements.getExpenseStatus());
 
-            complete = ps.execute();
-
+//            complete = ps.execute();
+            ps.execute();
 
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return complete;
+//        return complete;
 
     }
 
@@ -119,8 +119,8 @@ public class ExpenseReimbursementsDAO implements CRUD<ExpenseReimbursements>  {
 
 
     // update reimbursement status so pending to complete or cancel
-    public Boolean update(ExpenseReimbursements expenseReimbursements) {
-        Boolean updateComplete = false;
+    public void update(ExpenseReimbursements expenseReimbursements) {
+//        Boolean updateComplete = false;
 
         String sql = "UPDATE expense_reimbursements SET ex_id = ?, ex_user_name = ?, ex_date = ?, details = ?, amount = ?, ex_status = ?  WHERE ex_user_name = ? AND ex_id = ?";
 
@@ -136,33 +136,35 @@ public class ExpenseReimbursementsDAO implements CRUD<ExpenseReimbursements>  {
             ps.setString(7,expenseReimbursements.getExpenseUsername());
             ps.setInt(8, expenseReimbursements.getExpenseID());
 
-            updateComplete = ps.execute();
+//            updateComplete = ps.execute();
+            ps.execute();
 
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
-        return updateComplete;
+//        return updateComplete;
 
     }
 
 
 
     // delete reimbursement
-    public Boolean delete(ExpenseReimbursements expenseReimbursements) {
-        Boolean deleteSuccess = false;
+    public void delete(ExpenseReimbursements expenseReimbursements) {
+//        Boolean deleteSuccess = false;
         String sql = "DELETE FROM expense_reimbursements WHERE ex_id = ?";
 
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, expenseReimbursements.getExpenseID());
-            deleteSuccess = ps.execute();
+//            deleteSuccess = ps.execute();
+            ps.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
-        return deleteSuccess;
+//        return deleteSuccess;
 
     }
 

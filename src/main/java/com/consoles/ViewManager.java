@@ -31,6 +31,7 @@ public class ViewManager {
         for(View view : viewList) {
             if(view.viewName.equals(destination)){
                 nextView = view;
+                break;
             }
         }
     }

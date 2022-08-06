@@ -4,19 +4,23 @@ import com.daos.ExpenseReimbursementsDAO;
 import com.pojos.ExpenseReimbursements;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ExpenseReimbursementServices {
     private ExpenseReimbursementsDAO expenseReimbursementsDAO;
+
+    //validate service layer
 
     public ExpenseReimbursementServices()
     {
         this.expenseReimbursementsDAO = new ExpenseReimbursementsDAO();
     }
 
-    public Boolean save(ExpenseReimbursements expenseReimbursements)
+    // submitting a request
+    public void save(ExpenseReimbursements expenseReimbursements)
     {
-        return expenseReimbursementsDAO.create(expenseReimbursements);
+         expenseReimbursementsDAO.create(expenseReimbursements);
     }
 
     public ExpenseReimbursements readER(ExpenseReimbursements er)
@@ -29,13 +33,85 @@ public class ExpenseReimbursementServices {
         return expenseReimbursementsDAO.readAll();
     }
 
-    public Boolean updateER(ExpenseReimbursements expenseReimbursements)
+
+    public void updateER(ExpenseReimbursements expenseReimbursements)
     {
-        return expenseReimbursementsDAO.update(expenseReimbursements);
+         expenseReimbursementsDAO.update(expenseReimbursements);
     }
 
-    public Boolean deleteER(ExpenseReimbursements expenseReimbursements)
+    public void deleteER(ExpenseReimbursements expenseReimbursements)
     {
-        return expenseReimbursementsDAO.delete(expenseReimbursements);
+         expenseReimbursementsDAO.delete(expenseReimbursements);
     }
+
+    // cancel request
+    public void cancelRequest(ExpenseReimbursements er)
+    {
+        er.setExpenseStatus("cancelled");
+        // maybe even delete
+        expenseReimbursementsDAO.update(er);
+    }
+
+    // allows user to view all there pending and completed ER
+    public List<ExpenseReimbursements> viewAll(String username)
+    {
+        List<ExpenseReimbursements> userER = new ArrayList<ExpenseReimbursements>();
+
+        List<ExpenseReimbursements> allER = expenseReimbursementsDAO.readAll();
+
+        for(ExpenseReimbursements er: allER)
+        {
+            if(er.getExpenseUsername().equals(username))
+            {
+                userER.add(er);
+            }
+        }
+        return userER;
+    }
+
+    //filter requests
+    public List<ExpenseReimbursements> viewByStatusAdmin(String status)
+    {
+        List<ExpenseReimbursements> request = new ArrayList<ExpenseReimbursements>();
+
+        List<ExpenseReimbursements> filter = expenseReimbursementsDAO.readAll();
+
+        for(ExpenseReimbursements er : filter)
+        {
+            if(status.equals("All"))
+            {
+                if(er.getExpenseStatus().equals("Pending") || er.getExpenseStatus().equals("Approved")||status.equals("Cancelled") || er.getExpenseStatus().equals("Denied"))
+                {
+                    request.add(er);
+                }
+            }
+            if(status.equals("Pending"))
+            {
+                if(er.getExpenseStatus().equals("Pending"))
+                {
+                    request.add(er);
+                }
+            }
+            if(status.equals("Approved"))
+            {
+                if(er.getExpenseStatus().equals("Approved"))
+                {
+                    request.add(er);
+                }
+            }
+            if(status.equals("Denied"))
+            {
+                if(er.getExpenseStatus().equals("Denied"))
+                {
+                    request.add(er);
+                }
+            }
+
+
+        }
+
+
+        return request;
+    }
+
 }

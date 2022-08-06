@@ -7,9 +7,12 @@ public class Users {
     private String firstname;
     private String lastname;
     private String username;
+
+
     private String password;
     private String status = "User";
     private int user_id;
+    private String email;
 
 
 
@@ -18,24 +21,27 @@ public class Users {
     {
 
     }
-    public Users(String firstname, String lastname, String username, String password) {
+    public Users(String firstname, String lastname, String email, String username, String password) {
         this.firstname = firstname;
         this.lastname = lastname;
+        this.email = email;
         this.username = username;
         this.password = password;
         this.status = "User";
 
     }
-    public Users(String firstname, String lastname, String username, String password, String status ) {
+    public Users(String firstname, String lastname,String email, String username, String password, String status ) {
         this.firstname = firstname;
         this.lastname = lastname;
+        this.email = email;
         this.username = username;
         this.password = password;
         this.status = status;
     }
-    public Users(String firstname, String lastname, String username, String password, String status, int id ) {
+    public Users(String firstname, String lastname, String email, String username, String password, String status, int id ) {
         this.firstname = firstname;
         this.lastname = lastname;
+        this.email = email;
         this.username = username;
         this.password = password;
         this.status = status;
@@ -56,6 +62,14 @@ public class Users {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getUsername() {

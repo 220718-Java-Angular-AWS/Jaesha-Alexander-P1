@@ -24,53 +24,57 @@ public class UserDAO implements CRUD<Users> {
 
     // will take in a user and input it into the database
     // when user signs up
-    public boolean create(Users users) {
+    public void create(Users users) {
 
-        boolean complete = false;
+//        boolean complete = false;
 
-        String sql = "INSERT INTO users (user_first_name, user_last_name,user_name, password, status) VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO users (user_first_name, user_last_name,user_email, user_name, password, status) VALUES (?,?,?,?,?,?)";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
 
             // setting information into SQL statement
             ps.setString(1, users.getFirstname());
             ps.setString(2, users.getLastname());
-            ps.setString(3, users.getUsername());
-            ps.setString(4, users.getPassword());
-            ps.setString(5, users.getStatus());
+            ps.setString(3,users.getEmail());
+            ps.setString(4, users.getUsername());
+            ps.setString(5, users.getPassword());
+            ps.setString(6, users.getStatus());
 
             // sending to table
-            complete = ps.execute(); // returns boolean for update
-
+//            complete = ps.execute(); // returns boolean for update
+            ps.execute();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return complete;
+//        return complete;
 
     }
 
 
+    //MAY BE UNNESSARY
     // will read username to check to see if the person exists in the database
     // returns a boolean to instatiate if user exists
-    public Boolean readValidateUser(String username) {
-        Boolean usernameExists = false;
+    public Boolean readValidateUser(String username, String email) {
+        Boolean exists = false;
 
 
 
-        String sqlUser = "SELECT * FROM users u WHERE u.user_name = ? ";
+        String sqlUser = "SELECT * FROM users WHERE user_name = ? OR user_email= ? ";
 
         try {
             PreparedStatement ps = connection.prepareStatement(sqlUser);
-            ps.setString(1, username);
-            ResultSet usernameResult  = ps.executeQuery();
+            ps.setString(1,username);
+            ps.setString(2, email);
 
-            if (usernameResult.next())
+            ResultSet result  = ps.executeQuery();
+
+            if (result.next())
             {
-                usernameExists = true;
+                exists = true;
             }
 
-            return usernameExists;
+            return exists;
 
 
         } catch (SQLException e) {
@@ -79,7 +83,7 @@ public class UserDAO implements CRUD<Users> {
 
     }
     public Users readUser(String username) {
-        Users user = new Users();
+        Users user = null ;
 
         String sqlUser = "SELECT * FROM users u WHERE u.user_name = ? ";
 
@@ -92,6 +96,7 @@ public class UserDAO implements CRUD<Users> {
             {
                 user = new Users(userQuery.getString("user_first_name"),
                         userQuery.getString("user_last_name"),
+                        userQuery.getString("user_email"),
                         userQuery.getString("user_name"),
                         userQuery.getString("password"),
                         userQuery.getString("status"),
@@ -131,6 +136,7 @@ public class UserDAO implements CRUD<Users> {
             {
                 Users user = new Users(queryUsersSet.getString("user_first_name"),
                         queryUsersSet.getString("user_last_name"),
+                        queryUsersSet.getString("user_email"),
                         queryUsersSet.getString("user_name"),
                         queryUsersSet.getString("password"),
                         queryUsersSet.getString("status"));
@@ -157,11 +163,11 @@ public class UserDAO implements CRUD<Users> {
     // will change the status of the user between user and admin
     // to use has to change user status first in another method
     // and then pass user to this method
-    public Boolean update(Users users) { // this user
+    public void update(Users users) { // this user
         Boolean updateComplete = false;
 
         System.out.println("UPDATE INPUT: " + users);
-        String sql = "UPDATE users  SET user_id= ?, user_first_name= ?,user_last_name= ?,user_name= ?,password= ?, status = ? WHERE user_name = ?";
+        String sql = "UPDATE users  SET user_id= ?, user_first_name= ?, user_last_name= ?, user_email =?, user_name= ?,password= ?, status = ? WHERE user_name = ?";
 
         try {
 //            System.out.println("UPDATE INPUT: " + users);
@@ -169,34 +175,38 @@ public class UserDAO implements CRUD<Users> {
             ps.setInt(1, users.getUser_id());
             ps.setString(2,users.getFirstname());
             ps.setString(3, users.getLastname());
-            ps.setString(4,users.getUsername());
-            ps.setString(5, users.getPassword());
-            ps.setString(6,users.getStatus());
-            ps.setString(7,users.getUsername());
-            updateComplete = ps.execute();
+            ps.setString(4, users.getEmail());
+            ps.setString(5,users.getUsername());
+            ps.setString(6, users.getPassword());
+            ps.setString(7,users.getStatus());
+            ps.setString(8,users.getUsername());
+
+//            updateComplete = ps.execute();
+            ps.execute();
 
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
-        return updateComplete;
+//        return updateComplete;
     }
 
-    public Boolean delete(Users users) {
-        Boolean deleteSuccess = false;
+    public void delete(Users users) {
+//        Boolean deleteSuccess = false;
         String sql = "DELETE FROM users WHERE user_name = ?";
 
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, users.getUsername());
 
-            deleteSuccess = ps.execute();
+//            deleteSuccess = ps.execute();
+            ps.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
-        return deleteSuccess;
+//        return deleteSuccess;
     }
 
     // NOT NECCESSARY REALIZED CAN READ ALL AND THEN ITERATE THE ONES WE WANT FROM THE SERVICE LAYER

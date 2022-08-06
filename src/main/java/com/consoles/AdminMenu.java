@@ -1,10 +1,15 @@
 package com.consoles;
 
+import com.pojos.Users;
+import com.service.CurrentUser;
+
 import java.util.Scanner;
 
 public class AdminMenu extends View{
     Scanner scanner;
-    private LoginMenu loginMenu;
+
+
+    static Users currentUser;
 
     /*
     NOT DONE NEED TO FIGURE HOW TO EDIT STILL
@@ -19,38 +24,44 @@ public class AdminMenu extends View{
     }
 
     public void renderView() {
-        // users menu
+        currentUser = CurrentUser.getCurrentUser();
         scanner = new Scanner(System.in);
+        waitingResponse();
 
+    }
+
+    public void waitingResponse()
+    {
         boolean waitingResponse = false;
         while (!waitingResponse)
         {
             System.out.println("============Admin Menu ============");
-            System.out.println("(S) Submit request for reimbursement/n (C) Cancel pending request for reimbursement /n (V) View reimbursements /n (E) Edit pending requests for reimbursements /n (A) Approve/Deny expense reimbursement/n (Q) Quit");
+            System.out.println("(S) Submit request for reimbursement/n (C) Cancel pending request for reimbursement /n (V) View reimbursements /n (E) Edit pending requests for reimbursements /n (A) Approve/Deny expense reimbursement /n (Q) Quit");
             String response = scanner.nextLine();
 
-            if(response == "S" || response == "s")
+            if(response.equals("S") || response.equals("s"))
             {
                 waitingResponse = true;
+
                 viewManager.navigate("SubmitMenu");
 
             }
-            else if(response == "C" || response == "c")
+            else if(response.equals("C") || response.equals("c"))
             {
                 waitingResponse = true;
                 viewManager.navigate("CancelMenu");
             }
-            else if(response == "V" || response == "v")
+            else if(response.equals("V") || response.equals("v"))
             {
                 waitingResponse = true;
                 viewManager.navigate("ViewMenu");
             }
-            else if(response == "E" || response == "e")
+            else if(response.equals("E") || response.equals("e"))
             {
                 waitingResponse = true;
                 viewManager.navigate("EditMenu");
             }
-            else if(response == "Q" || response == "q")
+            else if(response.equals("Q") || response.equals("q"))
             {
                 waitingResponse = true;
                 viewManager.quit();
@@ -64,4 +75,5 @@ public class AdminMenu extends View{
         }
 
     }
+
 }

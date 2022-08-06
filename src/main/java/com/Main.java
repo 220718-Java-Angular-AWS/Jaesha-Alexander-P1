@@ -1,21 +1,85 @@
 package com;
 
+
 import com.consoles.*;
 import com.daos.ExpenseReimbursementsDAO;
 import com.daos.UserDAO;
 import com.pojos.ExpenseReimbursements;
 import com.pojos.Users;
 import com.service.ConnectionManagerService;
+import com.service.UserServices;
 
 import java.sql.Connection;
 import java.util.List;
 
 public class Main {
 
-    static void testingDAO() {
+
+    public static void main(String[] args) {
+// STILL NEED TO FINISH TESTING consoles
+
+
+        System.out.println("Connecting...");
+        Connection connection = ConnectionManagerService.getConnection();
+        System.out.println("Done!");
+
+//        UserServices userServices = new UserServices();
+//        UserDAO userDAO = new UserDAO();
+//        Users user1 = new Users("jane", "jug", "jug1@gmail.com", "ju1","1234");
+//        Users user2 = new Users("steve", "mu", "mu31@gmail.com", "mu31","12345");
+
+//testing consoles
+        ViewManager viewManager = ViewManager.getViewManager();
+
+        viewManager.registerView(new MainMenu());
+        viewManager.registerView(new AdminMenu());
+        viewManager.registerView(new CancelMenu());
+        viewManager.registerView(new EditMenu());
+        viewManager.registerView(new LoginMenu());
+        viewManager.registerView(new SignUpMenu());
+        viewManager.registerView(new SubmitMenu());
+        viewManager.registerView(new UserMenu());
+        viewManager.registerView(new ApproveDenyMenu());
+
+        System.out.println("1");
+        viewManager.navigate("MainMenu");
+        System.out.println("2");
+
+
+        while(viewManager.isRunning())
+        {
+            viewManager.render();
+        }
+
+// TESTING USERSERVICES
+
+/*
+        // TESTING VALID SIGN UP
+        boolean valueUser1 = userServices.validateUserSignUp(user1.getUsername(),user1.getEmail());
+        System.out.println("USER 1 should be: False/n Result: " + valueUser1);
+
+        boolean valueUser2 = userServices.validateUserSignUp(user2.getUsername(),user2.getEmail());
+        System.out.println("USER 2 should be: True/n Result: " + valueUser2);
+
+        // testing email portion
+        boolean valueUser3 = userServices.validateUserSignUp("mi","ex@ui.s");
+        System.out.println("should be: false/n Result: " + valueUser3);
+        boolean valueUser4 = userServices.validateUserSignUp("mi","exui.sam");
+        System.out.println("should be: false/n Result: " + valueUser4);
+
+       // TESTING VALID LOGIN
+        boolean value = userServices.validateUserLogin(user1.getUsername(), user1.getPassword());
+        System.out.println("should be TRUE/n Result: " + value);
+        boolean value2 = userServices.validateUserLogin(user1.getUsername(), "wrongPass");
+        System.out.println("should be FALSE/n Result: " + value2);
+/*
+
+
+// TESTING DAO
+        /*
         UserDAO userDAO = new UserDAO();
-        Users user1 = new Users("Sam", "Smith", "saSmith", "1234");
-        Users user2 = new Users("Jaesha", "Alexander", "junie3432","1234", "Admin" );
+        Users user1 = new Users("Sam", "Smith","ex@gmail.com" ,"saSmith", "1234");
+        Users user2 = new Users("Jaesha", "Alexander","ex1@hu.com" ,"junie3432","1234", "Admin" );
 
 
             userDAO.create(user1);
@@ -24,15 +88,24 @@ public class Main {
         user1 = userDAO.readUser("saSmith");
         user2 = userDAO.readUser("junie3432");
 
-    //        System.out.println("CREATE works");
+            System.out.println("CREATE works");
             System.out.println(user1); // these dont have an id
             System.out.println(user2);
 
-            // testing readValidate
-            System.out.println("testing readValidate/n");
-            System.out.println(userDAO.readValidateUser("junie3432"));
-            System.out.println(userDAO.readValidateUser("saSmith"));
-            System.out.println("readValidate works ");
+        Users user1 = new Users("jane", "jug", "jug1@gmail.com", "ju1","1234");
+        Users user2 = new Users("jane", "jug", "jug31@gmail.com", "ju31","1234");
+        Users user3 = new Users("jane", "jug", "jug315@gmail.com", "ju1","1234");
+        UserDAO userDAO = new UserDAO();
+        userDAO.create(user1);
+        user1 = userDAO.readUser(user1.getUsername());
+        boolean value = userDAO.readValidateUser(user1.getUsername(), user1.getEmail());
+        System.out.println(value);
+
+        boolean value2 = userDAO.readValidateUser(user2.getUsername(), user2.getEmail());
+        System.out.println(value2);
+
+        boolean value3 = userDAO.readValidateUser(user3.getUsername(), user3.getEmail());
+//        System.out.println(value3);
 
 
             // testing readUser
@@ -87,7 +160,7 @@ public class Main {
         ExpenseReimbursements er2 = new ExpenseReimbursements("junie3432", "08/08/2022", "practice 2", 3.52);
         ExpenseReimbursements er3 = new ExpenseReimbursements("saSmith", "08/09/2022", "practice 3", 23.76);
         ExpenseReimbursementsDAO erDAO = new ExpenseReimbursementsDAO();
-    //
+
         // testing create
         System.out.println("testing ER create ");
         erDAO.create(er1);
@@ -136,36 +209,17 @@ public class Main {
         {
             System.out.println(er);
         }
-
-    }
-    public static void main(String[] args) {
-
-
-
-        System.out.println("Connecting...");
-        Connection connection = ConnectionManagerService.getConnection();
-        System.out.println("Done!");
-
-//        testingDAO();
-
-
-        //testing consoles
-        ViewManager viewManager = ViewManager.getViewManager();
-
-        viewManager.registerView(new MainMenu());
-        viewManager.registerView(new AdminMenu());
-        viewManager.registerView(new CancelMenu());
-        viewManager.registerView(new EditMenu());
-        viewManager.registerView(new LoginMenu());
-        viewManager.registerView(new SignUpMenu());
+         */
 
 
 
 
-        while(viewManager.isRunning())
-        {
-            viewManager.render();
-        }
+
+
+
+
+
+
 
 
 

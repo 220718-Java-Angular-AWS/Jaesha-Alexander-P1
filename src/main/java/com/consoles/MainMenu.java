@@ -28,10 +28,8 @@ public class MainMenu extends View{
         // based on letter go to new console
         if(inp.equals("S") || inp.equals("s"))
         {
-            System.out.println("MADE IT IN S");
+//            System.out.println("MADE IT IN S");
             viewManager.navigate("SignUpMenu");
-            System.out.println("S after viewManager ");
-
 
         }
         else if(inp.equals("L") || inp.equals("l") )

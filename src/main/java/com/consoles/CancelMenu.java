@@ -3,29 +3,39 @@ package com.consoles;
 import com.daos.ExpenseReimbursementsDAO;
 import com.pojos.ExpenseReimbursements;
 import com.pojos.Users;
+import com.service.CurrentUser;
 import com.service.ExpenseReimbursementServices;
 import com.service.UserServices;
 
 import java.util.*;
 
-public class CancelMenu extends View{
+public class CancelMenu extends View {
     Scanner scanner;
-    private LoginMenu loginMenu;
     private ExpenseReimbursementServices expenseReimbursementServices;
-    Users currentUser;
-
+    static Users currentUser;
+    private Map<Integer, ExpenseReimbursements> expKeyValues;
 
     public CancelMenu() {
         viewName = "CancelMenu";
         viewManager = ViewManager.getViewManager();
-        currentUser = loginMenu.getCurrentUser();
 
     }
 
-    public void renderView() {
-        scanner = new Scanner(System.in);
 
-        Map<Integer, ExpenseReimbursements> expKeyValues = new HashMap<Integer, ExpenseReimbursements>();
+    public void renderView() {
+        currentUser = CurrentUser.getCurrentUser();
+        scanner = new Scanner(System.in);
+        expKeyValues = new HashMap<Integer, ExpenseReimbursements>();
+
+        cancelEx();
+        waitingResponse();
+
+
+    }
+
+
+    public void cancelEx() {
+        expenseReimbursementServices = new ExpenseReimbursementServices();
 
         // allows user to cancel pending
         System.out.println("================ Cancel Pending Reimbursement Request ========");
@@ -37,16 +47,17 @@ public class CancelMenu extends View{
         List<ExpenseReimbursements> currentUserEx = new ArrayList<ExpenseReimbursements>();
 
         // iterate through all the exp to find the ones with the current users username
-        for(ExpenseReimbursements exp: expenses)
-        {
-            if(exp.getExpenseUsername() == currentUser.getUsername() && exp.getExpenseStatus() == "Pending")
-            {
+        for (ExpenseReimbursements exp : expenses) {
+            if (exp.getExpenseUsername() == currentUser.getUsername() && exp.getExpenseStatus() == "Pending") {
                 currentUserEx.add(exp);
-                expKeyValues.put( exp.getExpenseID(), exp);
+                expKeyValues.put(exp.getExpenseID(), exp);
                 System.out.println(exp.toString());
             }
         }
+    }
 
+    public void waitingResponse()
+    {
         // give the user the option to cancel
         boolean waitingResponse = false;
 
@@ -104,6 +115,7 @@ public class CancelMenu extends View{
                 waitingResponse = true;
                 if(currentUser.getStatus() == "Admin")
                 {
+
                     viewManager.navigate("AdminMenu");
                 }
                 else
@@ -127,12 +139,8 @@ public class CancelMenu extends View{
 
         }
 
-
-
-
-
-
-
-
     }
+
+
+
 }

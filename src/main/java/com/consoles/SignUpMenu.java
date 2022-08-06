@@ -11,7 +11,9 @@ public class SignUpMenu extends View{
     private String lastName;
     private String userName;
     private String password;
-    private UserServices userServices;
+
+    private String email;
+    UserServices userServices;
 
     private Users user;
 
@@ -22,6 +24,7 @@ public class SignUpMenu extends View{
     
     public void renderView() {
         scanner = new Scanner(System.in);
+        userServices = new UserServices();
 
         System.out.println("========== Sign Up ===========");
 
@@ -31,6 +34,8 @@ public class SignUpMenu extends View{
         System.out.println("please enter your last name:");
         lastName = scanner.nextLine();
 
+        System.out.println("please enter your email: ");
+        email = scanner.nextLine();
 
         System.out.println("please enter your username:");
         userName = scanner.nextLine();
@@ -40,59 +45,63 @@ public class SignUpMenu extends View{
 
         // info needs to be validated
         // should be false indicating no user exists
-        Boolean validUsername = userServices.validateUser(userName);
+        Boolean valid = userServices.validateUserSignUp(userName, email);
 
-        if(validUsername == false) // no username exists good to create new user
+
+
+        if(valid == true) // no username exists good to create new user
         {
-            user = new Users(firstName, lastName,userName,password);
+            user = new Users(firstName, lastName,email, userName,password);
             userServices.save(user);
+
+            // to set the id
+            user = userServices.getUser(user.getUsername());
             System.out.println("Successful Sign Up");
 
             // take them to login prompt
             viewManager.navigate("LoginMenu");
         }
-        else if(validUsername == true) // user exists and they should sign in
+
+        // user exists and they should sign in
+        else if(valid == false)
         {
-            // will loop till they put in an response
-            boolean waitingResponse = false;
-            while(!waitingResponse)
-            {
-                System.out.println("This username already exists ");
-                System.out.println("(T) Try Signing Up Again /n (L) Log in /n (Q) Quit ");
-                String response = scanner.nextLine();
-
-                if(response == "T" || response == "t")
-                {
-                    waitingResponse = true;
-                    viewManager.navigate("SignUpMenu");
-                }
-                else if(response == "L" || response == "L")
-                {
-                    waitingResponse = true;
-                    viewManager.navigate("LoginMenu");
-                }
-                else if(response == "Q" || response == "q")
-                {
-                    waitingResponse = true;
-                    viewManager.quit();
-                }
-                else
-                {
-                    System.out.println("Not a valid option try again");
-                }
-            }
-
-
+            notValidSignUp();
         }
 
 
+    }
 
+    public void notValidSignUp()
+    {
+        // will loop till they put in an response
+        boolean waitingResponse = false;
+        while(!waitingResponse)
+        {
+            System.out.println("This username or email already exists ");
+            System.out.println("(T) Try Signing Up Again /n (L) Log in /n (Q) Quit ");
+            System.out.println("Enter a response: ");
+            String response = scanner.nextLine();
 
-
-
-
-
-
+            if(response.equals("T") || response.equals("t"))
+            {
+                waitingResponse = true;
+                viewManager.navigate("SignUpMenu");
+            }
+            else if(response.equals("L") || response.equals("l"))
+            {
+                waitingResponse = true;
+                viewManager.navigate("LoginMenu");
+            }
+            else if(response.equals("Q") || response.equals("q"))
+            {
+                waitingResponse = true;
+                viewManager.quit();
+            }
+            else
+            {
+                System.out.println("Not a valid option try again");
+            }
+        }
 
     }
 }

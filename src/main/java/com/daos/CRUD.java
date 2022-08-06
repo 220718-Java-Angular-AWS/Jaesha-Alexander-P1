@@ -5,11 +5,11 @@ import com.sun.org.apache.xpath.internal.operations.Bool;
 import java.util.List;
 
 public interface CRUD<T> {
-    boolean create(T t);
+    void create(T t);
 
     List<T> readAll();
 
-    Boolean update(T t);
+    void update(T t);
 
-    Boolean delete(T t);
+    void delete(T t);
 }

@@ -2,49 +2,35 @@ package com.consoles;
 
 import com.pojos.ExpenseReimbursements;
 import com.pojos.Users;
+import com.service.CurrentUser;
 import com.service.ExpenseReimbursementServices;
 
 import java.util.*;
 
 public class EditMenu extends View {
     private Scanner scanner;
-    private Users currentUser;
-
-    private LoginMenu loginMenu;
+    static Users currentUser;
     private ExpenseReimbursementServices expenseReimbursementServices;
+    private Map<Integer, ExpenseReimbursements> expKeyValues;
 
     public EditMenu() {
         viewManager = ViewManager.getViewManager();
         viewName = "EditMenu";
-        currentUser = loginMenu.getCurrentUser();
     }
 
 
     public void renderView() {
+        currentUser = CurrentUser.getCurrentUser();
         scanner = new Scanner(System.in);
+        expKeyValues = new HashMap<Integer, ExpenseReimbursements>();
+        expenseReimbursementServices = new ExpenseReimbursementServices();
 
-        Map<Integer, ExpenseReimbursements> expKeyValues = new HashMap<Integer, ExpenseReimbursements>();
+        editPending();
+        waitingResponse();
 
-        // allows user to edit pending
-        System.out.println("================ Edit Pending Reimbursement Requests ========");
+    }
 
-        // need to get users reimbursements
-        List<ExpenseReimbursements> expenses = expenseReimbursementServices.readAllER();
-
-        // List of Users reimbursement
-        List<ExpenseReimbursements> currentUserEx = new ArrayList<ExpenseReimbursements>();
-
-        // iterate through all the exp to find the ones with the current users username
-        for(ExpenseReimbursements exp: expenses)
-        {
-            if(exp.getExpenseUsername() == currentUser.getUsername() && exp.getExpenseStatus() == "Pending")
-            {
-                currentUserEx.add(exp);
-                expKeyValues.put( exp.getExpenseID(), exp);
-                System.out.println(exp.toString());
-            }
-        }
-
+    private void waitingResponse() {
         // give the user the option to cancel
         boolean waitingResponse = false;
 
@@ -141,7 +127,30 @@ public class EditMenu extends View {
 
 
         }
+    }
 
+    private void editPending() {
+        // allows user to edit pending
+        System.out.println("================ Edit Pending Reimbursement Requests ========");
+
+        // need to get users reimbursements
+        List<ExpenseReimbursements> expenses = expenseReimbursementServices.readAllER();
+
+        // List of Users reimbursement
+        List<ExpenseReimbursements> currentUserEx = new ArrayList<ExpenseReimbursements>();
+
+        // iterate through all the exp to find the ones with the current users username
+        for(ExpenseReimbursements exp: expenses)
+        {
+            if(exp.getExpenseUsername() == currentUser.getUsername() && exp.getExpenseStatus() == "Pending")
+            {
+                currentUserEx.add(exp);
+                expKeyValues.put( exp.getExpenseID(), exp);
+                System.out.println(exp.toString());
+            }
+        }
 
     }
+
+
 }
