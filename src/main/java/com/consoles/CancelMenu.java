@@ -48,7 +48,7 @@ public class CancelMenu extends View {
 
         // iterate through all the exp to find the ones with the current users username
         for (ExpenseReimbursements exp : expenses) {
-            if (exp.getExpenseUsername() == currentUser.getUsername() && exp.getExpenseStatus() == "Pending") {
+            if (exp.getExpenseUsername().equals(currentUser.getUsername()) && exp.getExpenseStatus().equals("Pending")) {
                 currentUserEx.add(exp);
                 expKeyValues.put(exp.getExpenseID(), exp);
                 System.out.println(exp.toString());
@@ -79,7 +79,7 @@ public class CancelMenu extends View {
 
                 while(!waitingResponse2)
                 {
-                    if(response2 == "Y" || response2 == "y")
+                    if(response2.equals("Y") || response2.equals("y"))
                     {
 
                         waitingResponse2 = true;
@@ -92,7 +92,7 @@ public class CancelMenu extends View {
 
 
                     }
-                    else if(response2 == "N" || response2 == "n")
+                    else if(response2.equals("N") || response2.equals( "n"))
                     {
                         // then go back by getting out of loop
                         waitingResponse2 = true;
@@ -113,7 +113,7 @@ public class CancelMenu extends View {
             else if(response == "B" || response == "b")
             {
                 waitingResponse = true;
-                if(currentUser.getStatus() == "Admin")
+                if(currentUser.getStatus().equals("Admin"))
                 {
 
                     viewManager.navigate("AdminMenu");

@@ -106,7 +106,7 @@ public class Users {
 
     @Override
     public String toString() {
-        return "ID: "+ getUser_id() + " First Name: " + getFirstname() + " Last Name: " + getLastname() + " User Name: " + getUsername() + " Password:" + getPassword() + " Status: " + getStatus();
+        return "ID: "+ getUser_id() + " First Name: " + getFirstname() + " Last Name: " + getLastname() + " User Name: " + getUsername() +" Email: "+ getEmail()+  " Password:" + getPassword() + " Status: " + getStatus();
 
     }
 }

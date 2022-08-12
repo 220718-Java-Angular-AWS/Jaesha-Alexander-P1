@@ -52,7 +52,7 @@ public class EditMenu extends View {
 
                 while(!waitingResponse2)
                 {
-                    if(response2 == "Y" || response2 == "y")
+                    if(response2.equals( "Y") || response2.equals("y"))
                     {
 
                         waitingResponse2 = true;
@@ -63,6 +63,20 @@ public class EditMenu extends View {
 
                         System.out.println("Enter Date: ");
                         String newDate = scanner.nextLine();
+                        System.out.println("Choose (L) Lodging (F) Food (T) Travel ");
+                        String option = scanner.nextLine();
+                        if(option.equals("L"))
+                        {
+                            option = "Lodging";
+                        }
+                        if(option.equals("T"))
+                        {
+                            option = "Food";
+                        }
+                        if(option.equals("L"))
+                        {
+                            option = "Travel";
+                        }
                         System.out.println("Enter Details: ");
                         String newDetails = scanner.nextLine();
                         System.out.println("Enter amount: ");
@@ -70,6 +84,7 @@ public class EditMenu extends View {
 
                         // updating exp values
                         editExp.setExpenseDate(newDate);
+                        editExp.setExpType(option);
                         editExp.setExpenseDetails(newDetails);
                         editExp.setExpenseAmount(newAmount);
 
@@ -81,7 +96,7 @@ public class EditMenu extends View {
 
                     }
 
-                    else if(response2 == "N" || response2 == "n")
+                    else if(response2.equals( "N") || response2.equals( "n"))
                     {
                         // then go back by getting out of loop
                         waitingResponse2 = true;
@@ -99,22 +114,27 @@ public class EditMenu extends View {
             } // end of inner while loop
 
             // response was other than exp ID number
-            else if(response == "B" || response == "b")
+            else if(response.equals( "B" )|| response.equals("b"))
             {
 
                 waitingResponse = true;
-                if (currentUser.getStatus() == "Admin")
+
+                // check status and prompt to userMenu or adminMenu
+                String userStatus = currentUser.getStatus();
+                if(userStatus.equals("User"))
+                {
+
+                    viewManager.navigate("UserMenu");
+                }
+
+                else if(userStatus.equals("Admin"))
                 {
                     viewManager.navigate("AdminMenu");
-                }
-                else
-                {
-                    viewManager.navigate("UserMenu");
                 }
 
 
             }
-            else if(response == "Q" || response == "q")
+            else if(response.equals("Q") || response.equals("q"))
             {
                 waitingResponse = true;
                 viewManager.quit();
@@ -142,7 +162,7 @@ public class EditMenu extends View {
         // iterate through all the exp to find the ones with the current users username
         for(ExpenseReimbursements exp: expenses)
         {
-            if(exp.getExpenseUsername() == currentUser.getUsername() && exp.getExpenseStatus() == "Pending")
+            if(exp.getExpenseUsername().equals( currentUser.getUsername()) && exp.getExpenseStatus().equals( "Pending"))
             {
                 currentUserEx.add(exp);
                 expKeyValues.put( exp.getExpenseID(), exp);

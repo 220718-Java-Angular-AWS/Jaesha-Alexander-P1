@@ -5,26 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fa64ef5f-0fdd-4448-8ff9-334488b95462" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/Jaesha-Alexander-P1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Jaesha-Alexander-P1.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/P1 project.txt" beforeDir="false" afterPath="$PROJECT_DIR$/P1 project.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/consoles/AdminMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/consoles/AdminMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/consoles/ApproveDenyMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/consoles/ApproveDenyMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/consoles/CancelMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/consoles/CancelMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/consoles/EditMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/consoles/EditMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/consoles/LoginMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/consoles/LoginMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/consoles/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/consoles/MainMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/consoles/SignUpMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/consoles/SignUpMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/consoles/SubmitMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/consoles/SubmitMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/consoles/UserMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/consoles/UserMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/consoles/ViewManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/consoles/ViewManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/consoles/ViewMenu.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/daos/CRUD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daos/CRUD.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/consoles/UserViewMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/consoles/UserViewMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/daos/ExpenseReimbursementsDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daos/ExpenseReimbursementsDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/daos/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/daos/UserDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pojos/ExpenseReimbursements.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pojos/ExpenseReimbursements.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/pojos/Users.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pojos/Users.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/service/ExpenseReimbursementServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/service/ExpenseReimbursementServices.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/service/UserServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/service/UserServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/junk.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/consoles/AdminMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/consoles/AdminMenu.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/consoles/ApproveDenyMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/consoles/ApproveDenyMenu.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/consoles/CancelMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/consoles/CancelMenu.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/consoles/EditMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/consoles/EditMenu.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/consoles/LoginMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/consoles/LoginMenu.class" afterDir="false" />
@@ -32,12 +35,15 @@
       <change beforePath="$PROJECT_DIR$/target/classes/com/consoles/SignUpMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/consoles/SignUpMenu.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/consoles/SubmitMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/consoles/SubmitMenu.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/consoles/UserMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/consoles/UserMenu.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/consoles/View.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/consoles/View.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/consoles/ViewManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/consoles/ViewManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/consoles/ViewMenu.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/daos/CRUD.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/daos/CRUD.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/daos/ExpenseReimbursementsDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/daos/ExpenseReimbursementsDAO.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/daos/UserDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/daos/UserDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pojos/ExpenseReimbursements.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/pojos/ExpenseReimbursements.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/pojos/Users.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/pojos/Users.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/service/ConnectionManagerService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/service/ConnectionManagerService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/service/CurrentUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/service/CurrentUser.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/service/ExpenseReimbursementServices.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/service/ExpenseReimbursementServices.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/service/UserServices.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/service/UserServices.class" afterDir="false" />
     </list>
@@ -71,15 +77,17 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.servlets" />
       <recent name="com.consoles" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Smart Tomcat.P1-API">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.Main" />
       <module name="Jaesha-Alexander-P1" />
@@ -87,6 +95,32 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="P1-API" type="com.poratu.idea.plugins.tomcat" factoryName="SMART_TOMCAT_FACTORY">
+      <option name="adminPort" value="8005" />
+      <option name="contextPath" value="/Jaesha-Alexander-P1" />
+      <option name="docBase" value="$PROJECT_DIR$/src/main/webapp" />
+      <option name="envOptions">
+        <map />
+      </option>
+      <option name="passParentEnvironmentVariables" value="true" />
+      <option name="port" value="8080" />
+      <option name="tomcatInfo">
+        <TomcatInfo>
+          <option name="name" value="Apache Tomcat/8.5.81" />
+          <option name="number" value="0" />
+          <option name="path" value="D:\apache\apache-tomcat-8.5.81\apache-tomcat-8.5.81" />
+          <option name="version" value="8.5.81.0" />
+        </TomcatInfo>
+      </option>
+      <option name="vmOptions" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.Main" />
+      <item itemvalue="Smart Tomcat.P1-API" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
@@ -122,6 +156,11 @@
           <properties class="java.lang.NullPointerException" package="java.lang" />
           <option name="timeStamp" value="8" />
         </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/consoles/SubmitMenu.java</url>
+          <line>34</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

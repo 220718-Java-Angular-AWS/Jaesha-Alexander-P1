@@ -103,8 +103,10 @@ public class ApproveDenyMenu extends View {
                         {
                             statusUpdate = "Denied";
                         }
+                        waitingResponse = true;
                         choosenEr.setExpenseStatus(statusUpdate);
                         expenseReimbursementServices.updateER(choosenEr);
+                        viewManager.navigate("ApproveDenyMenu");
                     }
 
                 }

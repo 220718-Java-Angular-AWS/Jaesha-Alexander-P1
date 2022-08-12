@@ -1,5 +1,4 @@
-TO do
-
+=====  Impt Classes =========
 DAO
 -CRUD (complete)
 - UserDAO (complete)
@@ -15,7 +14,7 @@ SERVICE LAYER
 - edit request
 - filter requests by status
 
-CONSOLES
+CONSOLES (no longer necessary replaced with servlets )
 - MainMenu (complete)
 - SignUpMenu (complete)
 - LoginMenu (complete)
@@ -26,52 +25,43 @@ CONSOLES
 - SubmitMenu (complete)
 - ApproveDenyMenu (complete)
 
-NEED TO ALLOW THE ADMIN TO CHANGE USERS STATUS  
+SERVLETS
+- UserServlet (complete)
+- ExpServlet
 
 
-Questions
-- how to pass object to another class
+
+
+
+===============TO DO: ===============
+- NEED TO ALLOW THE ADMIN TO CHANGE USERS STATUS
+- Testing
+- user consoles
+- servlets
+- make more validation checks for (ex: username and password)
+- the pretty side of the project
+- if time try junit test for service and dao
+
+
+
+
+=========== Questions ==============
+- how to pass object to another class **ANSWERED**
 ex: loginmenu pass current logged in user to other menu
-- when user cancels er should it be deleted
-
-- current user service class static 
-
-
-
-NOTES 
-- was able to sign up but then when tried to loggin error 
-- Need UserViewMenu so user can see there reimbursements 
+- when user cancels er should it be deleted **ANSWERED**
+- current user service class static **ANSWERED**
 
 
 
+============== TESTING =================
 
-
-
-users 
-sarah hug sarahHug@gmail.com sa12 123 (IN TABLE )
-
-
-TESTING 
-MainMenu (good)
-SignUpMenu (good)
-	- properly added to the table 
-	- properly assigned as users
-	- properly denied if username or email was already within table 
-	- properly checked email 
-LoginMenu 
-	- TO DO: needs to be tested for admin login 
-	- properly allowed only a person who existed within a table in 
-	- properly checked the credentials 
-	- did well with try again 
-	
-
-UserMenu
-	- TO DO: go to following submit, cancel 
-AdminMenu
-CancelMenu
-EditMenu
-SubmitMenu
-ApproveDenyMenu
+servlets (08/11)
+    - usersServlet
+        - a few questions within comments on page
+        - TESTED COMPLETE (get, put, post, delete)WITH SENDING REQUESTS AND RETRIEVING RESPONSES FROM POSTMAN
+    - expensereimbursement
+            - TESTED get and post 
+            - need to do : delete and put
 
 
 

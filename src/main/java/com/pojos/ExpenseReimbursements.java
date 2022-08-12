@@ -10,21 +10,25 @@ public class ExpenseReimbursements {
     private String expenseDetails;
     private double expenseAmount;
     private String expenseStatus;
+    private String expType;
 
     public ExpenseReimbursements() {
+        this.expenseStatus = "Pending";
     }
-    public ExpenseReimbursements(String expenseUsername, String expenseDate, String expenseDetails, double expenseAmount) {
+    public ExpenseReimbursements(String expenseUsername, String expenseDate, String expType, String expenseDetails, double expenseAmount) {
         this.expenseUsername = expenseUsername;
         this.expenseDate = expenseDate;
+        this.expType = expType;
         this.expenseDetails = expenseDetails;
         this.expenseAmount = expenseAmount;
         this.expenseStatus = "Pending";
 
     }
 
-    public ExpenseReimbursements(String expenseUsername, String expenseDate, String expenseDetails, double expenseAmount, String expenseStatus) {
+    public ExpenseReimbursements(String expenseUsername, String expenseDate, String expType, String expenseDetails, double expenseAmount, String expenseStatus) {
         this.expenseUsername = expenseUsername;
         this.expenseDate = expenseDate;
+        this.expType = expType;
         this.expenseDetails = expenseDetails;
         this.expenseAmount = expenseAmount;
         this.expenseStatus = expenseStatus;
@@ -78,10 +82,18 @@ public class ExpenseReimbursements {
         this.expenseStatus = expenseStatus;
     }
 
+    public String getExpType() {
+        return expType;
+    }
+
+    public void setExpType(String expType) {
+        this.expType = expType;
+    }
+
     @Override
     public String toString() {
 
-        return "ID: " + getExpenseID()+ " Username:  " + getExpenseUsername() + " Date:  " + getExpenseDate() + " Details: " + getExpenseDetails() + " Amount: " + getExpenseAmount() + " Status: " + getExpenseStatus();
+        return "ID: " + getExpenseID()+ " Username:  " + getExpenseUsername() + " Date:  " + getExpenseDate() + " Type: "+ getExpType() + " Details: " + getExpenseDetails() + " Amount: " + getExpenseAmount() + " Status: " + getExpenseStatus();
 
     }
 }

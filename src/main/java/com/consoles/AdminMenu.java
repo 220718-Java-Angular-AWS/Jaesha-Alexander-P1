@@ -36,7 +36,7 @@ public class AdminMenu extends View{
         while (!waitingResponse)
         {
             System.out.println("============Admin Menu ============");
-            System.out.println("(S) Submit request for reimbursement/n (C) Cancel pending request for reimbursement /n (V) View reimbursements /n (E) Edit pending requests for reimbursements /n (A) Approve/Deny expense reimbursement /n (Q) Quit");
+            System.out.println("(S) Submit request for reimbursement/n (C) Cancel pending request for reimbursement /n (V) View reimbursements /n (E) Edit pending requests for reimbursements /n (F) Filter expense reimbursement /n (Q) Quit");
             String response = scanner.nextLine();
 
             if(response.equals("S") || response.equals("s"))
@@ -54,13 +54,19 @@ public class AdminMenu extends View{
             else if(response.equals("V") || response.equals("v"))
             {
                 waitingResponse = true;
-                viewManager.navigate("ViewMenu");
+                viewManager.navigate("UserViewMenu");
             }
             else if(response.equals("E") || response.equals("e"))
             {
                 waitingResponse = true;
                 viewManager.navigate("EditMenu");
             }
+            else if(response.equals("F") || response.equals("F"))
+            {
+                waitingResponse = true;
+                viewManager.navigate("ApproveDenyMenu");
+            }
+
             else if(response.equals("Q") || response.equals("q"))
             {
                 waitingResponse = true;

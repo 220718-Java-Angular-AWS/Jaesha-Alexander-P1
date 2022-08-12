@@ -22,6 +22,7 @@ public class UserServices {
 
     public Users getUser(String username)
     {
+
         return userDAO.readUser(username);
     }
 

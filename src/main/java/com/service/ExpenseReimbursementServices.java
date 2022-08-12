@@ -23,9 +23,9 @@ public class ExpenseReimbursementServices {
          expenseReimbursementsDAO.create(expenseReimbursements);
     }
 
-    public ExpenseReimbursements readER(ExpenseReimbursements er)
+    public ExpenseReimbursements readER(int id)
     {
-        return expenseReimbursementsDAO.read(er);
+        return expenseReimbursementsDAO.read(id);
     }
 
     public List<ExpenseReimbursements> readAllER()

@@ -48,7 +48,7 @@ public class UserMenu extends View{
             else if(response.equals("V") || response.equals("v"))
             {
                 waitingResponse = true;
-                viewManager.navigate("ViewMenu");
+                viewManager.navigate("UserViewMenu");
             }
             else if(response.equals("E") || response.equals("e"))
             {

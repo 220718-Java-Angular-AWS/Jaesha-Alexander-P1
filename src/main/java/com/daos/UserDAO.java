@@ -4,10 +4,7 @@ import com.pojos.ExpenseReimbursements;
 import com.pojos.Users;
 import com.service.ConnectionManagerService;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +27,7 @@ public class UserDAO implements CRUD<Users> {
 
         String sql = "INSERT INTO users (user_first_name, user_last_name,user_email, user_name, password, status) VALUES (?,?,?,?,?,?)";
         try {
-            PreparedStatement ps = connection.prepareStatement(sql);
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             // setting information into SQL statement
             ps.setString(1, users.getFirstname());
@@ -43,6 +40,12 @@ public class UserDAO implements CRUD<Users> {
             // sending to table
 //            complete = ps.execute(); // returns boolean for update
             ps.execute();
+
+            ResultSet keyId = ps.getGeneratedKeys();
+            if(keyId.next())
+            {
+                users.setUser_id(keyId.getInt("user_id"));
+            }
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

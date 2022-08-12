@@ -39,11 +39,12 @@ public class Main {
         viewManager.registerView(new SignUpMenu());
         viewManager.registerView(new SubmitMenu());
         viewManager.registerView(new UserMenu());
+        viewManager.registerView(new UserViewMenu());
         viewManager.registerView(new ApproveDenyMenu());
 
-        System.out.println("1");
+//        System.out.println("1");
         viewManager.navigate("MainMenu");
-        System.out.println("2");
+//        System.out.println("2");
 
 
         while(viewManager.isRunning())
