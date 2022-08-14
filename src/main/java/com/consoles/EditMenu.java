@@ -2,7 +2,6 @@ package com.consoles;
 
 import com.pojos.ExpenseReimbursements;
 import com.pojos.Users;
-import com.service.CurrentUser;
 import com.service.ExpenseReimbursementServices;
 
 import java.util.*;
@@ -20,7 +19,7 @@ public class EditMenu extends View {
 
 
     public void renderView() {
-        currentUser = CurrentUser.getCurrentUser();
+//        currentUser = CurrentUser.getCurrentUser();
         scanner = new Scanner(System.in);
         expKeyValues = new HashMap<Integer, ExpenseReimbursements>();
         expenseReimbursementServices = new ExpenseReimbursementServices();

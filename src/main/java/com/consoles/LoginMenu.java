@@ -1,9 +1,10 @@
 package com.consoles;
 
-import com.pojos.Users;
 import com.service.CurrentUser;
+import com.pojos.Users;
 import com.service.UserServices;
 
+import java.util.Currency;
 import java.util.Scanner;
 
 public class LoginMenu extends View{

@@ -17,6 +17,8 @@ public class UserServices {
 
     public void save(Users user)
     {
+        // first validate userSignUp ?? NEED TO CHECK PASSWORD AND NAME
+
         userDAO.create(user);
     }
 

@@ -40,6 +40,8 @@ public class UsersServlet extends HttpServlet {
         String paramUserName = req.getParameter("user-name");
         String paramPassWord = req.getParameter("user-password");
 
+
+        System.out.println("Made into DOGET ");
         // want to get all the users so call service to read all
         if(paramUserName == null && paramPassWord == null )
         {
@@ -53,8 +55,9 @@ public class UsersServlet extends HttpServlet {
         // used to get a specific user based on the username
         else if(paramUserName != null && paramPassWord == null)
         {
-
+            System.out.println("MADE INTO CHECK USERNAME ");
             Users returnUser = service.getUser(paramUserName);
+            System.out.println("USER: " + returnUser);
             String json = objectMapper.writeValueAsString(returnUser);
             resp.getWriter().println(json);
         }
@@ -90,7 +93,7 @@ public class UsersServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int responeseNumb = 200;
 
-
+        System.out.println("MADE IT INTO POST ");
         // grabbing the info from the request
         StringBuilder stringBuilder = new StringBuilder();
         BufferedReader buffer = req.getReader();
@@ -101,26 +104,31 @@ public class UsersServlet extends HttpServlet {
         }
         String json = stringBuilder.toString();
 
+        System.out.println("POST JSON RESULT : " + json);
 
         // creating user object and checking if it is a valid user info - meaning not in the system already
         Users newUser = objectMapper.readValue(json,Users.class);
 
+        System.out.println("POST NEW USER : "+ newUser);
         boolean checkNewUser = service.validateUserSignUp(newUser.getUsername(), newUser.getEmail());
 
         // valid sign up
         if(checkNewUser)
         {
+            System.out.println("MADE INTO IF STATEMENT FOR NEW USER ");
             service.save(newUser);
         }
         // not valid
         else
         {
+            System.out.println("NOT INTO IF STATEMENT FOR NEW USER ");
             // NEED TO FIND BETTER WAY TO COMMUNICATE USER ALREADY EXISTS
             responeseNumb = 500;
         }
 
         resp.setContentType("Application/Json; Charset=UTF-8");
         resp.setStatus(responeseNumb);
+        System.out.println("MADE IT PASS SENDING BACK RESPONSE CODE ");
     }
 
     /*
@@ -170,7 +178,7 @@ public class UsersServlet extends HttpServlet {
 
         // creating user object and checking if it is a valid user info - meaning not in the system already
         Users deleteUser = objectMapper.readValue(json, Users.class);
-        deleteUser = service.getUser(deleteUser.getUsername());
+//        deleteUser = service.getUser(deleteUser.getUsername());
 
         System.out.println("BC2 : "+ deleteUser);
         //?? NOTE: maybe should check to see if user exists later  ??

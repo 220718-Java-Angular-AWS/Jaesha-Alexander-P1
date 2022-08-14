@@ -2,7 +2,6 @@ package com.consoles;
 
 import com.pojos.ExpenseReimbursements;
 import com.pojos.Users;
-import com.service.CurrentUser;
 import com.service.ExpenseReimbursementServices;
 
 import java.util.List;
@@ -21,7 +20,7 @@ public class UserViewMenu extends View{
     public void renderView() {
         scanner = new Scanner(System.in);
         expenseReimbursementServices = new ExpenseReimbursementServices();
-        currentUser = CurrentUser.getCurrentUser();
+//        currentUser = CurrentUser.getCurrentUser();
 
         System.out.println("============== All Reimbursements =============");
         List<ExpenseReimbursements> allER = expenseReimbursementServices.readAllER();

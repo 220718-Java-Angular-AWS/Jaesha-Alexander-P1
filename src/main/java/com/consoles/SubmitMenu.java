@@ -40,11 +40,11 @@ public class SubmitMenu extends View{
         {
             option = "Lodging";
         }
-        if(option.equals("T"))
+        if(option.equals("F"))
         {
             option = "Food";
         }
-        if(option.equals("L"))
+        if(option.equals("T"))
         {
             option = "Travel";
         }

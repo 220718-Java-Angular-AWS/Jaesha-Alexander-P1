@@ -167,7 +167,7 @@ public class UserDAO implements CRUD<Users> {
     // to use has to change user status first in another method
     // and then pass user to this method
     public void update(Users users) { // this user
-        Boolean updateComplete = false;
+//        Boolean updateComplete = false;
 
         System.out.println("UPDATE INPUT: " + users);
         String sql = "UPDATE users  SET user_id= ?, user_first_name= ?, user_last_name= ?, user_email =?, user_name= ?,password= ?, status = ? WHERE user_name = ?";

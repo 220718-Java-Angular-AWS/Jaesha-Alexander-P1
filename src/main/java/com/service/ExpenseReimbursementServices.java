@@ -33,6 +33,19 @@ public class ExpenseReimbursementServices {
         return expenseReimbursementsDAO.readAll();
     }
 
+    public List<ExpenseReimbursements> readByUser(String username)
+    {
+        List<ExpenseReimbursements> allEr = expenseReimbursementsDAO.readAll();
+        for(ExpenseReimbursements er : allEr)
+        {
+            if(!(er.getExpenseUsername().equals(username)))
+            {
+                allEr.remove(er);
+            }
+        }
+
+        return allEr;
+    }
 
     public void updateER(ExpenseReimbursements expenseReimbursements)
     {

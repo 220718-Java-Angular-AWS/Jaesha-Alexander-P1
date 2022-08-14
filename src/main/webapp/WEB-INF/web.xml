@@ -36,4 +36,25 @@
         <url-pattern>/expreimbursement</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>currentUser</servlet-name>
+        <servlet-class>com.servlets.CurrentUserServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>currentUser</servlet-name>
+        <url-pattern>/current</url-pattern>
+    </servlet-mapping>
+    <!-- CORS FILTER -->
+    <filter>
+        <filter-name>CorsFilter</filter-name>
+        <filter-class>com.servlets.CORSFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>CorsFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <!-- /CORS FILTER -->
+
 </web-app>

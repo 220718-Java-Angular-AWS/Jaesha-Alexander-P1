@@ -27,17 +27,17 @@ CONSOLES (no longer necessary replaced with servlets )
 
 SERVLETS
 - UserServlet (complete)
-- ExpServlet
+- ExpServlet (complete)
 
-
+FRONT END
+HTML
+    - main - user can sign up or login
 
 
 
 ===============TO DO: ===============
 - NEED TO ALLOW THE ADMIN TO CHANGE USERS STATUS
 - Testing
-- user consoles
-- servlets
 - make more validation checks for (ex: username and password)
 - the pretty side of the project
 - if time try junit test for service and dao
@@ -60,9 +60,8 @@ servlets (08/11)
         - a few questions within comments on page
         - TESTED COMPLETE (get, put, post, delete)WITH SENDING REQUESTS AND RETRIEVING RESPONSES FROM POSTMAN
     - expensereimbursement
-            - TESTED get and post 
+            - TESTED get and post
             - need to do : delete and put
-
 
 
 
