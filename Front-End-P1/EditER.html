@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title> Edit Menu </title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name = "viewport" content="wdth=device-width, initial -scale=1.0">
+        
+    </head>
+
+    <body> 
+        <h3> Edit Expense Reimbursement </h3>
+        <ul id = "erDisplay">  </ul>
+
+        <!-- allow them to type in the number of id -->
+        <!-- then allow them to change the id -->
+        <label> Enter the ID of the Expense Reimbursement: </label>
+        <input type = "text" name = "idER" id = "idER" ><br>
+
+        <!--DATE  -->
+        <label> Enter Date: </label>
+        <input type="text" id = "date" name = "date" >
+        <br>
+
+        <!--TYPE : Lodging, food, travel -->
+        <label> Choose Type: </label>
+        <br>
+        <label for=" lodgeType">Lodge</label>
+        <input type = "radio" id ="lodgeType" name = "type" value = "Lodge">
+        <label for=" foodType">Food</label>
+        <input type = "radio" id = "foodType" name = "type" value = "Food">
+        <label for=" travelType">Travel</label>
+        <input type = "radio" id = "travelType" name = "type" value = "Travel">
+         <br>
+
+        <!--details -->
+        <label> Details:</label>
+        <input type = "text" id = "details" name = "details" >
+        <br>
+        <!-- amount-->
+        <label> Amount:  </label>
+        <input type = "text" id = "amount" name = "amount" >
+        <br>
+        <!-- submit button -->
+        <input type="submit" id = "submit" name = "Submit" onclick="editER()">
+
+        <!-- back button -->
+        <input type="submit" id = "back" name = "back" value="Back" onclick = "returnMain()">
+        <br>
+
+</body>
+
+<script>
+    var currentUser;
+
+    (async function displayList()
+    {
+        console.log("MADE INTO DISPLAY LIST ");
+
+        // need to get currentUser
+        // let currentUser = await getCurrentUser(); 
+        // WONT LET ME USE METHOD SINCE IT IS IMMEDIATELY INVOKED 
+
+         
+        let url = 'http://localhost:8080/Jaesha-Alexander-P1/current';
+        let response = await fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+            }
+        });
+
+        let currentUserObj = await response.json();
+
+        // it is one thing so do not need for loop 
+        console.log("GET CURRENT USER OBJ : "+ currentUserObj.currentUser );
+        currentUser = currentUserObj.currentUser;
+
+        console.log("CurrentUser: "+ currentUser);
+
+        // need to get the list of er based on the username
+        let url2 = 'http://localhost:8080/Jaesha-Alexander-P1/expreimbursement?exp-username='+currentUser;
+
+        let response2 = await fetch (url2,{
+            method: 'GET',
+            headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+            }
+        });
+
+        let array = await response2.json();
+
+        let erList = document.getElementById("erDisplay");
+        
+        if(Array.isArray(array))
+        {
+            console.log("IF STATEMENT ARRAY ");
+            for(let i =0; i < array.length; i++)
+            {
+                let listItem = document.createElement("li");
+                listItem.innerText = "ID: "+ array[i].expenseID + " User: "+ array[i].expenseUsername + " Date: " + array[i].expenseDate + " Type: "+ array[i].expType+ " Details: "+ array[i].expenseDetails + " Amount: "+ array[i].expenseAmount + " Status: "+ array[i].expenseStatus;
+                erList.append(listItem);  
+            }
+        }
+        
+        else
+        {
+            // meaning a single object 
+            let listItem = document.createElement("li");
+            listItem.innerText = "ID: "+ array.expenseID + " User: "+ array.expenseUsername + " Date: " + array.expenseDate + " Type: "+ array.expType+ " Details: "+ array.expenseDetails + " Amount: "+ array.expenseAmount + " Status: "+ array.expenseStatus;
+            erList.append(listItem);
+        }
+
+    })();
+
+    
+
+</script>
+
+<script> 
+    async function editER()
+    {
+        console.log("MADE IT INTO EDIT ER ");
+        let radioButtionChoosen;
+            var ele = document.getElementsByName("type");
+            for(let i = 0; i < ele.length; i++)
+            {
+                if(ele[i].checked)
+                {
+                    radioButtionChoosen = ele[i].value;
+                }
+            }
+            console.log(radioButtionChoosen);
+
+
+        // want to get the id and the current user and put into the PUT  
+        let url = 'http://localhost:8080/Jaesha-Alexander-P1/expreimbursement?exp-id='+document.getElementById("idER").value;
+            
+        let response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+                }
+            });
+
+        let currentERObj = await response.json();
+        console.log("CurrentERObj: "+ currentERObj);
+
+        let expenseReimbursement = 
+        {
+            expenseUsername : currentUser, 
+            expenseDate: document.getElementById("date").value,
+            expType: radioButtionChoosen,
+            expenseDetails:document.getElementById("details").value,
+            expenseAmount: document.getElementById("amount").value,
+            expenseStatus: currentERObj.expenseStatus,
+            expenseID: currentERObj.expenseID
+        };
+
+        let urlPUT = 'http://localhost:8080/Jaesha-Alexander-P1/expreimbursement';
+        let responsePUT = await fetch(urlPUT,{
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            }, 
+            body: JSON.stringify(expenseReimbursement) // has a body 
+            });
+
+            if(responsePUT.status == 200)
+            {
+                alert("UPDATED ER GO CHECK TABLE");
+                // NEED TO REDISPLAY THE LISTS 
+                
+            }
+            else
+            {
+                alert("ER UPDATE FAILED BREAD CRUMB TIME  ");
+            }
+
+
+        
+    };
+</script>
+
+<script>
+    async function returnMain()
+    {
+        history.back();
+        
+    }
+</script>
+
+</html>

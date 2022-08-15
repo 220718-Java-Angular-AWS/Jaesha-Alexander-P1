@@ -34,26 +34,37 @@ public class ExpenseReimbursementServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("MADE INTO GET ER ");
+        System.out.println(1);
         String paramID = req.getParameter("exp-id");
+        System.out.println(2);
         String paramUsername = req.getParameter("exp-username");
+        System.out.println(3);
         if(paramID == null && paramUsername == null)
         {
+            System.out.println(4);
             List<ExpenseReimbursements>  erAll = service.readAllER();
             String json = objectMapper.writeValueAsString(erAll);
             resp.getWriter().println(json);
         }
         else if(paramUsername != null && paramID == null)
         {
+            System.out.println(5);
             List<ExpenseReimbursements> erByUser = service.readByUser(paramUsername);
+            System.out.println(5.1);
             String json = objectMapper.writeValueAsString(erByUser);
+            System.out.println(5.2);
             resp.getWriter().println(json);
+            System.out.println(5.3);
 
         }
         else if (paramUsername == null && paramID != null)
         {
+            System.out.println(6);
             ExpenseReimbursements er = service.readER(Integer.parseInt(paramID));
             String json = objectMapper.writeValueAsString(er);
             resp.getWriter().println(json);
+            System.out.println(7);
         }
         resp.setContentType("Application/Json; Charset=UTF-8");
         resp.setStatus(200);
@@ -63,19 +74,26 @@ public class ExpenseReimbursementServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //        super.doPost(req, resp);
+//        System.out.println(1);
         StringBuilder stringBuilder = new StringBuilder();
+//        System.out.println(2);
         BufferedReader buffer = req.getReader();
+//        System.out.println(3);
 
         while(buffer.ready())
         {
+//            System.out.println(4);
             stringBuilder.append(buffer.readLine());
-
+//            System.out.println(5);
         }
+//        System.out.println(6);
         String json = stringBuilder.toString();
-
+//        System.out.println(7);
         ExpenseReimbursements er = objectMapper.readValue(json, ExpenseReimbursements.class);
+//        System.out.println(8);
 //        System.out.println(er);
         service.save(er);
+//        System.out.println(9);
 
         resp.setContentType("Application/Json; Charset=UTF-8");
         resp.setStatus(200);

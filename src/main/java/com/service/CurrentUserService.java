@@ -1,13 +1,14 @@
 package com.service;
 
+import com.daos.CurrentUserDAO;
 import com.pojos.CurrentUser;
 
 public class CurrentUserService {
-    private CurrentUserService currentUserService;
+    private CurrentUserDAO currentUserDAO;
 
     public CurrentUserService()
     {
-        this.currentUserService = new CurrentUserService();
+        this.currentUserDAO = new CurrentUserDAO();
     }
 
     // save
@@ -16,26 +17,27 @@ public class CurrentUserService {
         // need to delete the old current user
         deleteCurrentUser();
 
-        currentUserService.saveCurrentUser(currentUser);
+        currentUserDAO.create(currentUser);
 
     }
 
     // read
     public CurrentUser readCurrentUser()
     {
-        return currentUserService.readCurrentUser();
+        return currentUserDAO.readAll();
     }
 
     // update
     public void updateCurrentUser(CurrentUser currentUser)
     {
-        currentUserService.updateCurrentUser(currentUser);
+
+        currentUserDAO.update(currentUser);
     }
 
     //delete
     public void deleteCurrentUser()
     {
-        currentUserService.deleteCurrentUser();
+        currentUserDAO.delete();
     }
 
 }

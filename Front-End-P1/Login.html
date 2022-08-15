@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width = device-width, initial-scale=1.0">
+    <title> Login </title>
+</head>
+<h1 >LOGIN PAGE</h1>
+    <body> 
+        <p> Login</p>
+           
+            <label > Username: </label><br> 
+            <input type = "text" id = "username" name = "username"> <br> 
+
+            <label > Password: </label><br> 
+            <input type = "password" id = "password" name = "password">  
+            <br>
+            <br>
+
+            <input type="submit" value = "Login" id = "login", name = "login" onclick= "login(document.getElementById('username').value, document.getElementById('password').value)">
+
+    </body>
+
+    <script>
+        async function login(username, password)
+        {
+            // 
+            // alert("IN LOGIN "+ username + password);
+
+            let url = 'http://localhost:8080/Jaesha-Alexander-P1/user?user-name='+username + '&user-password='+password;
+            
+            let response = await fetch(url, {
+            method: 'GET',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            }
+        });
+
+        if(response.status == 200 )
+        {
+            // alert("MADE INTO SUCCES ");
+            // alert("LOGIN VALID ");
+            checkUserStatus(document.getElementById('username').value);
+        }
+        else
+        {
+            alert("Invalid Login Try again");
+        }
+
+
+        };
+    </script>
+
+    <script>
+        async function checkUserStatus(username)
+        {
+            // alert("IN USER STATUS "); 
+
+            let url = 'http://localhost:8080/Jaesha-Alexander-P1/user?user-name='+username;
+            
+            let response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            }
+            });
+
+            let item = await response.json();
+
+            // alert("OUSTIDE LOOP");
+            // console.log(item);
+
+            // console.log(item.length);
+
+            // set Current User 
+            
+            setCurrentUser();
+
+            if(item.status === 'User')
+            {
+                window.location.replace("UserMenu.html");
+            }
+            else
+            {
+                window.location.replace("AdminMenu.html");
+            }
+
+
+        };
+    </script>
+
+    <script>
+        async function setCurrentUser()
+        {
+            let user = {
+                currentUser: document.getElementById("username").value,
+                
+            }
+            // console.log("user: "+user);
+            let url = 'http://localhost:8080/Jaesha-Alexander-P1/current';
+            let response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(user)
+            });
+
+            if(response.status == 200)
+            {
+                alert("Success")
+            }
+            else{
+                alert("Something went wrong trying to set the current user");
+            }
+
+        };
+    </script>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title> Cancel Menu </title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name = "viewport" content="wdth=device-width, initial -scale=1.0">
+        
+    </head>
+    <body> 
+        <h1> Cancel Expense Reimbursement  </h1>
+
+        <!--GOAL: display all the current users info and then allow them to enter in the id number of the expense reimbursement they want to cancel and then update the status to cancelled -->
+    <h3> Your Expense Reimbursements</h3>
+    <ul id = "erDisplay">  </ul>
+    <h1 id = "emptyDisplay"> </h1>
+
+    <!--display user input boxes -->
+    <label> Input Id of expense reimbursement to cancel: </label>
+    <input type="text" name = "erId" id = "erId">
+    <br>
+    <input type="submt" name="submit" id = "submit" value="Cancel Expense Reimbursement" onclick = "cancelER()">
+    <input type = "submit" name = "back" id = "back" value="Back" onclick = "returnMain()">
+
+
+    </body>
+    
+
+   
+    <!--idea have them put in the id # then get the object based on ID then send back a new object with the status as cancelled then PUT it -->
+
+    
+
+
+    <script>
+        async function cancelER()
+        {
+            // need to get the id number to read the stuff 
+            let idNumb = document.getElementById("erId").value;
+            console.log("ID NUMB: "+ idNumb);
+
+            let url = 'http://localhost:8080/Jaesha-Alexander-P1/expreimbursement?exp-id='+idNumb;
+            let response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+                }
+            });
+
+            let currentERObj = await response.json();
+            console.log("CurrentERObj: "+ currentERObj);
+
+            let expenseReimbursement = 
+            {
+                expenseUsername : currentERObj.expenseUsername,
+                expenseDate: currentERObj.expenseDate,
+                expType: currentERObj.expType,
+                expenseDetails:currentERObj.expenseDetails,
+                expenseAmount: currentERObj.expenseAmount,
+                expenseStatus: "Cancelled",
+                expenseID: currentERObj.expenseID
+            }
+            let urlPUT = 'http://localhost:8080/Jaesha-Alexander-P1/expreimbursement';
+            let responsePUT = await fetch(urlPUT,{
+                method: 'PUT',
+                headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            }, 
+            body: JSON.stringify(expenseReimbursement) // has a body 
+            });
+
+            if(responsePUT.status == 200)
+            {
+                alert("UPDATED ER GO CHECK TABLE  ");
+                // display updated ER's 
+                displayListAgain();
+            }
+            else
+            {
+                alert("ER UPDATE FAILED BREAD CRUMB TIME  ");
+            }
+
+        };
+    </script>
+    <script>
+        async function returnMain()
+    {
+        // window.location.replace("UserMenu.html");
+        history.pushState(null, null, "UserMenu.html");
+
+    };
+    </script>
+
+    <script>
+        (async function displayList()
+        {
+            console.log("MADE INTO DISPLAY LIST ");
+
+            // need to get currentUser
+            // let currentUser = await getCurrentUser(); 
+            // WONT LET ME USE METHOD SINCE IT IS IMMEDIATELY INVOKED 
+
+            let currentUser; 
+            let url = 'http://localhost:8080/Jaesha-Alexander-P1/current';
+            let response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+                }
+            });
+
+            let currentUserObj = await response.json();
+
+            // it is one thing so do not need for loop 
+            console.log("GET CURRENT USER OBJ : "+ currentUserObj.currentUser );
+            currentUser = currentUserObj.currentUser;
+
+            console.log("CurrentUser: "+ currentUser);
+
+            // need to get the list of er based on the username
+            let url2 = 'http://localhost:8080/Jaesha-Alexander-P1/expreimbursement?exp-username='+currentUser;
+
+            let response2 = await fetch (url2,{
+                method: 'GET',
+                headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+                }
+            });
+
+            let array = await response2.json();
+
+            let erList = document.getElementById("erDisplay");
+            
+            if(Array.isArray(array))
+            {
+                console.log("IF STATEMENT ARRAY ");
+                for(let i =0; i < array.length; i++)
+                {
+                    let listItem = document.createElement("li");
+                    listItem.innerText = "ID: "+ array[i].expenseID + " User: "+ array[i].expenseUsername + " Date: " + array[i].expenseDate + " Type: "+ array[i].expType+ " Details: "+ array[i].expenseDetails + " Amount: "+ array[i].expenseAmount + " Status: "+ array[i].expenseStatus;
+                    erList.append(listItem);  
+                }
+            }
+            else
+            {
+                // meaning a single object 
+                let listItem = document.createElement("li");
+                listItem.innerText = "ID: "+ array.expenseID + " User: "+ array.expenseUsername + " Date: " + array.expenseDate + " Type: "+ array.expType+ " Details: "+ array.expenseDetails + " Amount: "+ array.expenseAmount + " Status: "+ array.expenseStatus;
+                erList.append(listItem);
+            }
+
+        })();
+    </script>
+
+<script>
+    async function displayListAgain()
+    {
+
+        console.log("MADE INTO DISPLAY LIST ");
+
+        // need to get currentUser
+        // let currentUser = await getCurrentUser(); 
+        // WONT LET ME USE METHOD SINCE IT IS IMMEDIATELY INVOKED 
+
+        let currentUser; 
+        let url = 'http://localhost:8080/Jaesha-Alexander-P1/current';
+        let response = await fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+            }
+        });
+
+        let currentUserObj = await response.json();
+
+        // it is one thing so do not need for loop 
+        console.log("GET CURRENT USER OBJ : "+ currentUserObj.currentUser );
+        currentUser = currentUserObj.currentUser;
+
+        console.log("CurrentUser: "+ currentUser);
+
+        // need to get the list of er based on the username
+        let url2 = 'http://localhost:8080/Jaesha-Alexander-P1/expreimbursement?exp-username='+currentUser;
+
+        let response2 = await fetch (url2,{
+            method: 'GET',
+            headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+            }
+        });
+
+        let array = await response2.json();
+
+        let erList = document.getElementById("erDisplay");
+        erList.innerHTML = '';
+        
+        if(Array.isArray(array))
+        {
+            console.log("IF STATEMENT ARRAY ");
+            for(let i =0; i < array.length; i++)
+            {
+                let listItem = document.createElement("li");
+                listItem.innerText = "ID: "+ array[i].expenseID + " User: "+ array[i].expenseUsername + " Date: " + array[i].expenseDate + " Type: "+ array[i].expType+ " Details: "+ array[i].expenseDetails + " Amount: "+ array[i].expenseAmount + " Status: "+ array[i].expenseStatus;
+                erList.append(listItem);  
+            }
+        }
+        else
+        {
+            // meaning a single object 
+            let listItem = document.createElement("li");
+            listItem.innerText = "ID: "+ array.expenseID + " User: "+ array.expenseUsername + " Date: " + array.expenseDate + " Type: "+ array.expType+ " Details: "+ array.expenseDetails + " Amount: "+ array.expenseAmount + " Status: "+ array.expenseStatus;
+            erList.append(listItem);
+        }
+
+    };
+</script>
+
+
+</html>

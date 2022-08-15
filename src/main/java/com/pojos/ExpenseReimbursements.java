@@ -34,6 +34,17 @@ public class ExpenseReimbursements {
         this.expenseStatus = expenseStatus;
     }
 
+    public ExpenseReimbursements(String expenseUsername, String expenseDate, String expType, String expenseDetails, double expenseAmount, String expenseStatus, int expenseID) {
+        this.expenseUsername = expenseUsername;
+        this.expenseDate = expenseDate;
+        this.expType = expType;
+        this.expenseDetails = expenseDetails;
+        this.expenseAmount = expenseAmount;
+        this.expenseStatus = expenseStatus;
+        this.expenseID = expenseID;
+    }
+
+
     public int getExpenseID() {
         return expenseID;
     }

@@ -2,9 +2,10 @@ package com.servlets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pojos.CurrentUser;
-import com.pojos.ExpenseReimbursements;
 import com.service.CurrentUserService;
-import com.service.ExpenseReimbursementServices;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.service.UserServices;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.List;
 
 public class CurrentUserServlet extends HttpServlet {
     ObjectMapper objectMapper;
@@ -20,9 +22,12 @@ public class CurrentUserServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
+        System.out.println("Current User  servlet initializing.1..");
         this.service = new CurrentUserService();
+        System.out.println("Current User  servlet initializing.2..");
         this.objectMapper = new ObjectMapper();
-        System.out.println("Current User Initialized");
+        System.out.println("Current User  servlet initializing.3..");
+
     }
 
     @Override
@@ -40,6 +45,7 @@ public class CurrentUserServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("MADE INTO SERVLET CURRENT USER ");
         StringBuilder stringBuilder = new StringBuilder();
         BufferedReader buffer = req.getReader();
 

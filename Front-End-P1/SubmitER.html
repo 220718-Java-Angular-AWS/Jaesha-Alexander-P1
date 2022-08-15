@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title> Submit Menu </title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name = "viewport" content="wdth=device-width, initial -scale=1.0">
+        
+    </head>
+    <body> 
+        <h1> Submit Expense Reimbursement</h1>
+        <!--NEED ALL THE BOXES FOR THE INFO THE USER WILL INPUT -->
+    <!--DATE  -->
+    <label> Enter Date: </label>
+    <input type="text" id = "date" name = "date" >
+    <br>
+
+    <!--TYPE : Lodging, food, travel -->
+    <label> Choose Type: </label>
+    <br>
+    <label for=" lodgeType">Lodge</label>
+    <input type = "radio" id ="lodgeType" name = "type" value = "Lodge">
+    <label for=" foodType">Food</label>
+    <input type = "radio" id = "foodType" name = "type" value = "Food">
+    <label for=" travelType">Travel</label>
+    <input type = "radio" id = "travelType" name = "type" value = "Travel">
+    <br>
+
+    <!--details -->
+    <label> Details:</label>
+    <input type = "text" id = "details" name = "details" >
+    <br>
+    <!-- amount-->
+    <label> Amount:  </label>
+    <input type = "text" id = "amount" name = "amount" >
+    <br>
+    <!-- submit button -->
+    <input type="submit" id = "submit" name = "Submit" onclick="submitER()">
+
+    <!-- back button -->
+    <input type="submit" id = "back" name = "back" value="Back" onclick = "returnMain()">
+    <br>
+    
+    </body>
+
+    <script>
+        
+        async function submitER()
+        {
+            console.log("MADE INTO SUBMIT ER ");
+            // need to get currentuser 
+            let currentUser= await getCurrentUser();
+
+            // console.log("Current User: " + currentUser);
+
+            // then input the info to be sent to the table 
+            // value of toggle : 
+
+            let radioButtionChoosen;
+            var ele = document.getElementsByName("type");
+            for(let i = 0; i < ele.length; i++)
+            {
+                if(ele[i].checked)
+                {
+                    radioButtionChoosen = ele[i].value;
+                }
+            }
+            console.log(radioButtionChoosen)
+
+            // creating ER to submit 
+            let expenseReimbursement = {
+                expenseUsername : currentUser,
+                expenseDate: document.getElementById("date").value,
+                expType: radioButtionChoosen,
+                expenseDetails: document.getElementById("details").value,
+                expenseAmount: document.getElementById("amount").value           
+            };
+
+            let url = 'http://localhost:8080/Jaesha-Alexander-P1/expreimbursement';
+
+            let response = await fetch(url,{
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            }, 
+            body: JSON.stringify(expenseReimbursement) // has a body 
+            });
+
+
+            if(response.status == 200)
+            {
+                alert("SUBMITTED EXPENSE REIMBURSEMENT SUCCESSFUL ");
+            }
+            else
+            {
+                alert("SUBMITTED EXPENSE REIMBURSEMENT NOT SUCCESSFUL ");
+            }
+
+
+
+        };
+    </script>
+
+    <script>
+        async function getCurrentUser()
+        {
+            let url = 'http://localhost:8080/Jaesha-Alexander-P1/current';
+            let response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+                }
+            });
+
+            let currentUserObj = await response.json();
+
+            // it is one thing so do not need for loop 
+            console.log("GET CURRENT USER OBJ : "+ currentUserObj.currentUser );
+            return currentUserObj.currentUser;
+
+
+        };
+
+    </script>
+
+    <script> 
+    async function returnMain()
+    {
+        // // window.location.replace("UserMenu.html");
+        // console.log("TRIED BACK");
+        history.back();
+
+    };
+
+    </script>
+
+    
+</html>

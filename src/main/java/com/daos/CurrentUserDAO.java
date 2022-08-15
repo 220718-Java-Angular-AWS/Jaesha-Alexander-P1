@@ -17,7 +17,7 @@ public class CurrentUserDAO  {
 
 
     public void create(CurrentUser currentUser) {
-        String sql = "INSERT INTO currentUser (current_user) VALUES (?)";
+        String sql = "INSERT INTO currentUser VALUES (?)";
         try
         {
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -75,7 +75,7 @@ public class CurrentUserDAO  {
     }
 
 
-    public void delete(CurrentUser currentUser) {
+    public void delete() {
         String sql = "DELETE FROM currentUser";
 
         try {

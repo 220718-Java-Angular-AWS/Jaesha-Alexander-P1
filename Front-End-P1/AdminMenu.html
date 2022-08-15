@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width = device-width, initial-scale=1.0">
+    <title> AdminMenu</title>
+</head>
+<h1> Admin Menu </h1>
+
+<body>
+    <!--Submit Request Button-->
+<label> Submit Expense Reimbursement</label>
+<input type="submit" value = "Submit" id = "submit", name = "submit" onclick= "submitER()">
+<br>
+<!--Cancel Pending Button-->
+<label>Cancel Expense Reimbursement  </label>
+<input type="submit" value = "Cancel" id = "cancel", name = "cancel" onclick= "cancelER()">
+<br>
+<!-- View Reimbursement Button -->
+<label> View Expense Reimbursement</label>
+<input type="submit" value = "View" id = "view", name = "view" onclick= "viewER()">
+<br>
+<!--Edit Pending Button-->
+<label> Edit Pending Expense Reimbursement </label>
+<input type="submit" value = "Edit" id = "edit", name = "edit" onclick= "editER()">
+
+<label> Go Approve or Deny Expense Reimbursement</label>
+<input type="submit" value = "Edit" id = "edit", name = "edit" onclick= "editErStatus()">
+
+<label> Change User to Administrator </label>
+<input type="submit" value = "Edit" id = "edit", name = "edit" onclick= "editUserStatusER()">
+</body>
+
+
+
+<!-- Submit: will take to another screen to take info-->
+<script>
+    async function submitER()
+    {
+        history.pushState(null, null, "AdminMenu.html");
+        window.location.replace("SubmitER.html");
+    };
+</script>
+
+<script>
+    async function cancelER()
+    {
+        history.pushState(null, null, "AdminMenu.html");
+        window.location.replace("CancelER.html");
+    };
+</script>
+
+<script> 
+    async function viewER()
+    {
+        history.pushState(null, null, "AdminMenu.html");
+        window.location.replace("ViewER.html");
+    };
+</script>
+
+<script>
+    async function editER()
+    {
+        history.pushState(null, null, "AdminMenu.html");
+        window.location.replace("EditER.html");
+    }
+</script>
+
+<script> 
+    async function editErStatus()
+    {
+        history.pushState(null, null, "AdminMenu.html");
+        window.location.replace("EditERStatus.html");
+    }
+</script>
+
+<script>
+    async function editUserStatusER()
+    {
+        history.pushState(null, null, "AdminMenu.html");
+        window.location.replace("EditUserStatus.html");
+    }
+</script>
+
+</html>

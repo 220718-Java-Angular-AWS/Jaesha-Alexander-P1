@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title> Main Menu </title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name = "viewport" content="wdth=device-width, initial -scale=1.0">
+        
+    </head>
+    <body> 
+        <h1> Project P1 </h1>
+
+            <!-- Will start by asking them to sign up or to login -->
+
+            <p> Sign Up or Login</p>
+            <label >First Name: </label><br> 
+            <input type = "text" id = "firstname" name = "firstname"> <br> 
+            
+            <label > Last Name: </label><br> 
+            <input type = "text" id = "lastname" name = "lastname"> <br> 
+
+            <label > Username: </label><br> 
+            <input type = "text" id = "username" name = "username"> <br> 
+
+            <label > Email: </label><br> 
+            <input type = "text" id = "email" name = "email"> <br> 
+
+            <label > Password: </label><br> 
+            <input type = "password" id = "password" name = "password">  
+            <br>
+            <br>
+
+            <input type="submit" value = "Sign Up " id = "signup", name = "signup" onclick = "goSignUp()">
+            <p> or Login</p>
+            <input type="submit" value = "Login " id = "login", name = "login" onclick= goLogin()>
+
+
+    </body>
+
+    <!-- SIGN UP : NEEDS TO PASS THE INFO INTO THE FUNCTION AND CALL ON THE SERVLET -->
+    <script>
+        // this will sign up and then send the user to login 
+        async function goSignUp()
+        {
+            
+            // want to take the info 
+            let user = {
+                firstname: document.getElementById("firstname").value,
+                lastname: document.getElementById("lastname").value,
+                email: document.getElementById("email").value,
+                username: document.getElementById("username").value,
+                password: document.getElementById("password").value
+
+            };
+
+            console.log(user);
+
+
+            // url is a server location 
+            let url = 'http://localhost:8080/Jaesha-Alexander-P1/user';
+            
+            let response = await fetch(url, {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                
+            }, 
+
+            body: JSON.stringify(user) // has a body 
+        });
+
+        alert(response.status);
+
+        if(response.status == 200)
+        {
+            alert("Success");
+            window.location.replace("Login.html");
+        }
+        else{
+            alert("Something Invalid Sign Up Try Again....");
+        }
+        };
+
+    </script>
+
+
+
+    <!-- LOGIN NEEDS TO CHANGE THE PAGE -->
+    <script>
+        async function goLogin()
+    {
+        window.location.replace("Login.html");
+    }; 
+        
+
+    </script>
+
+
+
+</html>
