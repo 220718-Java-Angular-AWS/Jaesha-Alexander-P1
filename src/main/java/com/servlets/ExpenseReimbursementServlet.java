@@ -124,7 +124,7 @@ public class ExpenseReimbursementServlet extends HttpServlet {
 //        System.out.println(er);
         if(checkER == true)
         {
-            service.save(er);
+            service.updateER(er);
             numb = 200;
         }
 
