@@ -3,8 +3,8 @@ package com.service;
 import com.daos.ExpenseReimbursementsDAO;
 import com.pojos.ExpenseReimbursements;
 import com.sun.org.apache.xpath.internal.operations.Bool;
-
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ExpenseReimbursementServices {
@@ -127,6 +127,54 @@ public class ExpenseReimbursementServices {
 
 
         return request;
+    }
+
+
+    public boolean checkER(ExpenseReimbursements er)
+    {
+        boolean valid = false;
+
+        String dateStr = er.getExpenseDate();
+
+        if(dateStr.length() >=8 && dateStr.length() <= 10)
+        {
+            dateStr = er.getExpenseDate();
+            int numb = dateStr.indexOf("/");
+            String month = dateStr.substring(0,numb);
+            dateStr = dateStr.substring(numb+1);
+            String day = dateStr.substring(0, dateStr.indexOf("/"));
+            dateStr =dateStr.substring(dateStr.indexOf("/")+1);
+            String year = dateStr;
+            try
+            {
+                int monthInt = Integer.parseInt(month);
+                int dayInt = Integer.parseInt(day);
+                int yearInt = Integer.parseInt(year);
+
+                if(monthInt>=1 && monthInt <= 12 )
+                {
+                    if(dayInt >= 1 && monthInt <= 31)
+                    {
+                        if(yearInt>=2019)
+                        {
+                            if(er.getExpenseDetails().isEmpty() == false)
+                            {
+                                valid = true;
+                            }
+                        }
+                    }
+                }
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+
+        // check to make sure details are not empty
+
+        //
+        return valid;
     }
 
 }

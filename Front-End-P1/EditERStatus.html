@@ -8,6 +8,193 @@
 </head>
 <h1> Edit ER Status Menu </h1>
 
+<ul id = "erDisplay">  </ul>
+
+</ul>
+
 <body>
+    <label> Choose Specific Type to View: </label>
+    <input type="submit" name=" viewAll" id = "viewAll" value = "View All" onclick="reloadPage()">
+    <input type="submit" name="viewPending" id="viewPending" value = "View Pending" onclick="chooseType('Pending')">
+    <input type="submit" name="viewCancelled" id="viewCancelled" value="View Cancelled" onclick="chooseType('Cancelled')"> 
+
+    <input type="submit" name="viewApproved" id="viewApproved" value = "View Approved" onclick="chooseType('Approved')">
+    <input type="submit" name="viewDenied" id="viewDenied" value="View Denied" onclick="chooseType('Denied')"> 
+
+    <br>
+    <label> Approve or Deny Expense Reimbursements </label>
+    <!-- need to display all the ER's  -->
+    <!--DATE  -->
+    <label> Enter ID: </label>
+    <input type="text" id = "erID" name = "erID" >
+    <br>
+
+    <!--TYPE : Lodging, food, travel -->
+    <label> Choose Type: </label>
+    <br>
+    <label for=" ApprovedButton">Approved</label>
+    <input type = "radio" id ="ApprovedButton" name = "type" value = "Approved">
+    <label for=" DeniedButton">Denied</label>
+    <input type = "radio" id = "DeniedButton" name = "type" value = "Denied">
+    <br>
+    <input type="submt" name="submit" id = "submit" value="Submit Change " onclick = "submitChange()">
+    <input type = "submit" name = "back" id = "back" value="Back" onclick = "returnMain()">
+
+
 </body>
+
+
+
+<script>
+    async function returnMain()
+{
+    // window.location.replace("UserMenu.html");
+    history.back();
+
+};
+</script>
+
+
+
+<!---------SECOND ATTEMPT ----------->
+<script>
+    var allERList = [];
+
+    (async function readAll()
+    {
+        let url = 'http://localhost:8080/Jaesha-Alexander-P1/expreimbursement';
+    
+        let response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                    }
+                });
+    
+        let array = await response.json();
+        // console.log("CurrentERObj: "+ currentERObj);
+    
+        let erList = document.getElementById("erDisplay");
+        console.log(erList.innerText)
+    
+        if(Array.isArray(array))
+             {
+                    console.log("IF STATEMENT ARRAY ");
+                    for(let i =0; i < array.length; i++)
+                    {
+                        let listItem = document.createElement("li");
+                        listItem.innerText = "ID: "+ array[i].expenseID + " User: "+ array[i].expenseUsername + " Date: " + array[i].expenseDate + " Type: "+ array[i].expType+ " Details: "+ array[i].expenseDetails + " Amount: "+ array[i].expenseAmount + " Status: "+ array[i].expenseStatus;
+                        allERList.push(array[i]);
+                        erList.append(listItem);  
+                    }
+                }
+        else
+            {
+                    // meaning a single object 
+                    let listItem = document.createElement("li");
+                    listItem.innerText = "ID: "+ array.expenseID + " User: "+ array.expenseUsername + " Date: " + array.expenseDate + " Type: "+ array.expType+ " Details: "+ array.expenseDetails + " Amount: "+ array.expenseAmount + " Status: "+ array.expenseStatus;
+                    allERList.push(array[i]);
+                    erList.append(listItem);
+                }
+    })(); 
+    
+    
+
+    async function submitChange()
+    {
+            let idValue = document.getElementById("erID").value;
+            let buttonChoosen;
+            var ele = document.getElementsByName("type");
+                for(let i = 0; i < ele.length; i++)
+                {
+                    if(ele[i].checked)
+                    {
+                        buttonChoosen = ele[i].value;
+                    }
+                }
+    
+    
+        let item;
+
+        for(let i =0; i < allERList.length;i++)
+        {
+            if(allERList[i].expenseID == idValue )
+            {
+                if(allERList[i].expenseStatus !== 'Cancelled')
+                {
+                    item = allERList[i];
+                }
+            }
+        }
+
+        console.log("ITEM: "+ item);
+        if(item !== undefined)
+        {
+            let expenseReimbursement = {
+                expenseUsername : item.expenseUsername, 
+                expenseDate: item.expenseDate,
+                expType: item.expType,
+                expenseDetails:item.expenseDetails,
+                expenseAmount: item.expenseAmount,
+                expenseStatus: buttonChoosen,
+                expenseID: item.expenseID
+            };
+    
+            // now update using PUT
+            let urlPUT = 'http://localhost:8080/Jaesha-Alexander-P1/expreimbursement';
+            let responsePUT = await fetch(urlPUT,{
+                    method: 'PUT',
+                    headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                }, 
+                body: JSON.stringify(expenseReimbursement) // has a body 
+                });
+    
+                if(responsePUT.status == 200)
+                {
+                    alert("UPDATED ER GO CHECK TABLE  ");
+                    // // display updated ER's 
+                    // displayListAgain();
+                    location.reload()
+                }
+                else
+                {
+                    alert("ER UPDATE FAILED BREAD CRUMB TIME  ");
+                }
+        }
+        else
+        {
+            alert("Cannot Change Cancelled");
+        }
+        };
+    
+    
+
+</script>
+
+<script>
+    let erList = document.getElementById("erDisplay");
+    async function chooseType(type)
+        {
+            erList.innerHTML = "";
+
+            for(let i =0; i < allERList.length;i++)
+            {
+                if(allERList[i].expenseStatus === type)
+                {
+                    let listItem = document.createElement("li");
+                    listItem.innerText = "ID: "+ allERList[i].expenseID + " User: "+ allERList[i].expenseUsername + " Date: " + allERList[i].expenseDate + " Type: "+ allERList[i].expType+ " Details: "+ allERList[i].expenseDetails + " Amount: "+ allERList[i].expenseAmount + " Status: "+ allERList[i].expenseStatus;
+                    erList.append(listItem);  
+                }
+            }
+    };
+
+    async function reloadPage()
+    {
+        location.reload();
+    }
+</script>
+    
+
+<!---------SECOND ATTEMPT ----------->
 </html>

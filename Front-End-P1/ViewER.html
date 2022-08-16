@@ -6,8 +6,108 @@
     <meta name="viewport" content="width = device-width, initial-scale=1.0">
     <title> View ER Menu </title>
 </head>
-<h1> View ER Menu </h1>
+
 
 <body>
+    <!--- NO LONGER NEEDED JUST SCARED TO DELETE YET -->
+    <h1> View ER Menu </h1>
+    <!--NEED TO DISPLAY all expense Reimbursements -->
+    <ul id = "erDisplay">  </ul>
+
+</ul>
+
+<label> Choose Specific Type to View: </label>
+<input type="submit" name=" viewAll" id = "viewAll" value = "View All" onclick="reloadPage()">
+<input type="submit" name="viewPending" id="viewPending" value = "View Pending" onclick="chooseType('Pending')">
+<input type="submit" name="viewCancelled" id="viewCancelled" value="View Cancelled" onclick="chooseType('Cancelled')"> 
+
+<input type="submit" name="viewApproved" id="viewApproved" value = "View Approved" onclick="chooseType('Approved')">
+<input type="submit" name="viewDenied" id="viewDenied" value="View Denied" onclick="chooseType('Denied')"> 
+
+<br>
+<input type = "submit" name = "back" id = "back" value="Back" onclick = "returnMain()">
+
 </body>
+
+
+
+<script>
+    var allERList = [];
+    var erList = document.getElementById("erDisplay");
+
+    (async function readAll()
+    {
+        let url = 'http://localhost:8080/Jaesha-Alexander-P1/expreimbursement';
+    
+        let response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                    }
+                });
+    
+        let array = await response.json();
+        // console.log("CurrentERObj: "+ currentERObj);
+    
+        let erList = document.getElementById("erDisplay");
+        console.log(erList.innerText)
+    
+        if(Array.isArray(array))
+             {
+                    console.log("IF STATEMENT ARRAY ");
+                    for(let i =0; i < array.length; i++)
+                    {
+                        let listItem = document.createElement("li");
+                        listItem.innerText = "ID: "+ array[i].expenseID + " User: "+ array[i].expenseUsername + " Date: " + array[i].expenseDate + " Type: "+ array[i].expType+ " Details: "+ array[i].expenseDetails + " Amount: "+ array[i].expenseAmount + " Status: "+ array[i].expenseStatus;
+                        allERList.push(array[i]);
+                        erList.append(listItem);  
+                    }
+                }
+        else
+            {
+                    // meaning a single object 
+                    let listItem = document.createElement("li");
+                    listItem.innerText = "ID: "+ array.expenseID + " User: "+ array.expenseUsername + " Date: " + array.expenseDate + " Type: "+ array.expType+ " Details: "+ array.expenseDetails + " Amount: "+ array.expenseAmount + " Status: "+ array.expenseStatus;
+                    allERList.push(array);
+                    erList.append(listItem);
+                }
+
+
+    
+    })(); 
+
+    async function chooseType(type)
+    {
+        erList.innerHTML = "";
+
+        for(let i =0; i < allERList.length;i++)
+        {
+            if(allERList[i].expenseStatus === type)
+            {
+                let listItem = document.createElement("li");
+                listItem.innerText = "ID: "+ allERList[i].expenseID + " User: "+ allERList[i].expenseUsername + " Date: " + allERList[i].expenseDate + " Type: "+ allERList[i].expType+ " Details: "+ allERList[i].expenseDetails + " Amount: "+ allERList[i].expenseAmount + " Status: "+ allERList[i].expenseStatus;
+                erList.append(listItem);  
+            }
+        }
+    }
+
+    
+    </script>
+    
+    <script> 
+    async function reloadPage()
+    {
+        location.reload();
+    }
+    </script>
+
+    <script>
+        async function returnMain()
+    {
+        // window.location.replace("UserMenu.html");
+        history.back();
+    
+    };
+    </script> 
+    
 </html>

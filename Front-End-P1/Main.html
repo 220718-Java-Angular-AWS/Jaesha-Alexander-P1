@@ -22,12 +22,14 @@
 
             <label > Username: </label><br> 
             <input type = "text" id = "username" name = "username"> <br> 
-
+            <label> username must contain only letters and numbers must have atleast 3 letters and atleast 1 number </label>
+            <br> 
             <label > Email: </label><br> 
             <input type = "text" id = "email" name = "email"> <br> 
 
             <label > Password: </label><br> 
             <input type = "password" id = "password" name = "password">  
+            <label> password must be a length of atleast 5 and must contain atleast 1 number </label>
             <br>
             <br>
 
@@ -76,10 +78,13 @@
         if(response.status == 200)
         {
             alert("Success");
+            history.pushState(null, null, "Main.html");
             window.location.replace("Login.html");
+            
         }
         else{
-            alert("Something Invalid Sign Up Try Again....");
+            alert("Invalid Sign Up Try Again....");
+            location.reload();
         }
         };
 
@@ -91,6 +96,7 @@
     <script>
         async function goLogin()
     {
+        history.pushState(null, null, "Main.html");
         window.location.replace("Login.html");
     }; 
         

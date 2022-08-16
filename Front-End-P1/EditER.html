@@ -21,6 +21,7 @@
         <!--DATE  -->
         <label> Enter Date: </label>
         <input type="text" id = "date" name = "date" >
+        <label> date format: MM/dd/YYYY</label>
         <br>
 
         <!--TYPE : Lodging, food, travel -->
@@ -52,7 +53,19 @@
 </body>
 
 <script>
+    async function returnMain()
+    {
+        history.back();
+        
+    }
+</script>
+
+
+
+<!--------SECOND ATTEMPT ---------->
+<script>
     var currentUser;
+    var userERList = [];
 
     (async function displayList()
     {
@@ -100,6 +113,7 @@
             {
                 let listItem = document.createElement("li");
                 listItem.innerText = "ID: "+ array[i].expenseID + " User: "+ array[i].expenseUsername + " Date: " + array[i].expenseDate + " Type: "+ array[i].expType+ " Details: "+ array[i].expenseDetails + " Amount: "+ array[i].expenseAmount + " Status: "+ array[i].expenseStatus;
+                userERList.push(array[i]);
                 erList.append(listItem);  
             }
         }
@@ -109,16 +123,12 @@
             // meaning a single object 
             let listItem = document.createElement("li");
             listItem.innerText = "ID: "+ array.expenseID + " User: "+ array.expenseUsername + " Date: " + array.expenseDate + " Type: "+ array.expType+ " Details: "+ array.expenseDetails + " Amount: "+ array.expenseAmount + " Status: "+ array.expenseStatus;
+            userERList.push(array);
             erList.append(listItem);
         }
 
     })();
 
-    
-
-</script>
-
-<script> 
     async function editER()
     {
         console.log("MADE IT INTO EDIT ER ");
@@ -133,19 +143,14 @@
             }
             console.log(radioButtionChoosen);
 
-
-        // want to get the id and the current user and put into the PUT  
-        let url = 'http://localhost:8080/Jaesha-Alexander-P1/expreimbursement?exp-id='+document.getElementById("idER").value;
-            
-        let response = await fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-                }
-            });
-
-        let currentERObj = await response.json();
-        console.log("CurrentERObj: "+ currentERObj);
+        let currentERObj;
+        for(let i =0; i < userERList.length; i++)
+        {
+            if(userERList[i].expenseID == document.getElementById("idER").value)
+            {
+                currentERObj = userERList[i];
+            }
+        }
 
         let expenseReimbursement = 
         {
@@ -170,6 +175,7 @@
             if(responsePUT.status == 200)
             {
                 alert("UPDATED ER GO CHECK TABLE");
+                location.reload();
                 // NEED TO REDISPLAY THE LISTS 
                 
             }
@@ -181,14 +187,12 @@
 
         
     };
+
+    
+
 </script>
 
-<script>
-    async function returnMain()
-    {
-        history.back();
-        
-    }
-</script>
+
+<!---------SECOND ATTEMPT ------------>
 
 </html>

@@ -45,7 +45,7 @@ public class SignUpMenu extends View{
 
         // info needs to be validated
         // should be false indicating no user exists
-        Boolean valid = userServices.validateUserSignUp(userName, email);
+        Boolean valid = userServices.validateUserSignUp(userName, password, email);
 
 
 

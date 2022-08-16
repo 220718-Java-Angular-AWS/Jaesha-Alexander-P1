@@ -8,6 +8,173 @@
 </head>
 <h1> Edit User Status Menu </h1>
 
+<ul id = "userDisplay">  </ul>
+
+</ul>
+
 <body>
+
+    <!-- need to display all the ER's  -->
+    <!--DATE  -->
+    <label> Enter the username you wish to switch user status: </label>
+    <input type="text" id = "statusername" name = "statusername" >
+    <br>
+
+    <!--TYPE : Lodging, food, travel -->
+    <label> Choose Type: </label>
+    <br>
+    <label for=" AdminButton">Admin</label>
+    <input type = "radio" id ="AdminButton" name = "type" value = "Admin">
+    <label for=" UserButton">User</label>
+    <input type = "radio" id = "UserButton" name = "type" value = "User">
+    <br>
+    <input type="submt" name="submit" id = "submit" value="Submit Change" onclick = "submitChange()">
+    <input type = "submit" name = "back" id = "back" value="Back" onclick = "returnMain()">
 </body>
+
+
+
+<!--- SECOND ATTEMPT -->
+<script>
+    var allUserList = [];
+
+    (async function readAllUsers()
+    {
+        let url = 'http://localhost:8080/Jaesha-Alexander-P1/user';
+
+        let response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+                }
+            });
+
+        let array = await response.json();
+        // console.log("CurrentERObj: "+ currentERObj);
+
+        let userList = document.getElementById("userDisplay");
+        // console.log(erList.innerText)
+
+        if(Array.isArray(array))
+            {
+                console.log("IF STATEMENT ARRAY ");
+                for(let i =0; i < array.length; i++)
+                {
+                    let listItem = document.createElement("li");
+                    listItem.innerText = " Username: "+ array[i].username + " ID: "+ array[i].user_id + " first name : "+ array[i].firstname + " last name: " + array[i].lastname + " status: "+ array[i].status;
+                    allUserList.push(array[i]);
+                    userList.append(listItem);  
+                }
+            }
+        else
+            {
+                // meaning a single object 
+                let listItem = document.createElement("li");
+                listItem.innerText = " Username: "+ array.username + " ID: "+ array.user_id + " first name : "+ array.firstname + " last name: " + array.lastname + " status: "+ array.status;
+                allUserList.push(array);
+                userList.append(listItem);
+            }
+
+
+    })();
+
+    async function submitChange()
+    {
+        console.log("MADE IT INTO SUBMIT CHANGE ");
+
+        let usernameValue = document.getElementById("statusername").value;
+        let buttonChoosen;
+        var ele = document.getElementsByName("type");
+            for(let i = 0; i < ele.length; i++)
+            {
+                if(ele[i].checked)
+                {
+                    buttonChoosen = ele[i].value;
+                }
+            }
+            console.log(buttonChoosen);
+
+        console.log(usernameValue);
+        // need to get the item 
+        // let url = 'http://localhost:8080/Jaesha-Alexander-P1/user?user-name='+usernameValue;
+
+        // let response = await fetch(url, {
+        //         method: 'GET',
+        //         headers: {
+        //             'Content-Type': 'application/json;charset=utf-8'
+        //             }
+        //         });
+
+        // console.log(response.status);
+
+        let item;
+
+        for(let i =0; i < allUserList.length; i++)
+        {
+            if(allUserList[i].username === usernameValue)
+            {
+                item = allUserList[i];
+            }
+        }
+
+        console.log(item);
+        console.log(buttonChoosen)
+
+        if(item !== undefined)
+        {
+            let user = {
+            firstname: item.firstname, 
+            lastname: item.lastname,
+            username: item.username,
+            password:item.password,
+            user_id: item.user_id,
+            email: item.email,
+            status: buttonChoosen,
+            };
+
+            // now update using PUT
+            let urlPUT = 'http://localhost:8080/Jaesha-Alexander-P1/user';
+            let responsePUT = await fetch(urlPUT,{
+            method: 'PUT',
+            headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+            }, 
+            body: JSON.stringify(user) // has a body 
+            });
+
+            if(responsePUT.status == 200)
+            {
+            alert("UPDATED ER GO CHECK TABLE  ");
+            // // display updated ER's 
+            // displayListAgain();
+            location.reload()
+            }
+            else
+            {
+            alert("ER UPDATE FAILED BREAD CRUMB TIME  ");
+            }
+
+        }  
+        else
+        {
+            alert("Incorrect Username Try Again");
+        }      
+    };
+
+</script>
+
+
+<!----- SECOND ATTEMPT ----->
+<script> 
+        async function returnMain()
+        {
+            history.back();
+
+        };
+</script>
+
+
+
+
+ 
 </html>

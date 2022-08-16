@@ -56,6 +56,7 @@ public class UsersServlet extends HttpServlet {
         else if(paramUserName != null && paramPassWord == null)
         {
             System.out.println("MADE INTO CHECK USERNAME ");
+            System.out.println("paUsername: " + paramUserName);
             Users returnUser = service.getUser(paramUserName);
             System.out.println("USER: " + returnUser);
             String json = objectMapper.writeValueAsString(returnUser);
@@ -110,7 +111,7 @@ public class UsersServlet extends HttpServlet {
         Users newUser = objectMapper.readValue(json,Users.class);
 
         System.out.println("POST NEW USER : "+ newUser);
-        boolean checkNewUser = service.validateUserSignUp(newUser.getUsername(), newUser.getEmail());
+        boolean checkNewUser = service.validateUserSignUp(newUser.getUsername(), newUser.getPassword(), newUser.getEmail());
 
         // valid sign up
         if(checkNewUser)
@@ -150,7 +151,8 @@ public class UsersServlet extends HttpServlet {
 
         // creating user object and checking if it is a valid user info - meaning not in the system already
         Users updateUser = objectMapper.readValue(json, Users.class);
-        updateUser = service.getUser(updateUser.getUsername());
+
+//        updateUser = service.getUser(updateUser.getUsername());
         //?? NOTE: maybe should check to see if user exists later  ??
 
         service.updateUser(updateUser);

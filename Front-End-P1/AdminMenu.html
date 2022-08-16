@@ -17,17 +17,17 @@
 <label>Cancel Expense Reimbursement  </label>
 <input type="submit" value = "Cancel" id = "cancel", name = "cancel" onclick= "cancelER()">
 <br>
-<!-- View Reimbursement Button -->
+<!-- View Reimbursement Button
 <label> View Expense Reimbursement</label>
 <input type="submit" value = "View" id = "view", name = "view" onclick= "viewER()">
-<br>
+<br> -->
 <!--Edit Pending Button-->
 <label> Edit Pending Expense Reimbursement </label>
 <input type="submit" value = "Edit" id = "edit", name = "edit" onclick= "editER()">
-
+<br>
 <label> Go Approve or Deny Expense Reimbursement</label>
 <input type="submit" value = "Edit" id = "edit", name = "edit" onclick= "editErStatus()">
-
+<br>
 <label> Change User to Administrator </label>
 <input type="submit" value = "Edit" id = "edit", name = "edit" onclick= "editUserStatusER()">
 </body>
@@ -51,13 +51,13 @@
     };
 </script>
 
-<script> 
+<!-- <script> 
     async function viewER()
     {
         history.pushState(null, null, "AdminMenu.html");
         window.location.replace("ViewER.html");
     };
-</script>
+</script> -->
 
 <script>
     async function editER()

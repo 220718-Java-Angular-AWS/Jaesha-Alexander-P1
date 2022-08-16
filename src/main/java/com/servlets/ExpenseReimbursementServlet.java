@@ -73,8 +73,8 @@ public class ExpenseReimbursementServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        super.doPost(req, resp);
-//        System.out.println(1);
+
+        int numb = 500;
         StringBuilder stringBuilder = new StringBuilder();
 //        System.out.println(2);
         BufferedReader buffer = req.getReader();
@@ -90,21 +90,26 @@ public class ExpenseReimbursementServlet extends HttpServlet {
         String json = stringBuilder.toString();
 //        System.out.println(7);
         ExpenseReimbursements er = objectMapper.readValue(json, ExpenseReimbursements.class);
+        boolean checkER = service.checkER(er);
 //        System.out.println(8);
 //        System.out.println(er);
-        service.save(er);
+        if(checkER == true)
+        {
+            service.save(er);
+            numb = 200;
+        }
+
 //        System.out.println(9);
 
         resp.setContentType("Application/Json; Charset=UTF-8");
-        resp.setStatus(200);
+        resp.setStatus(numb);
 
 
     }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        super.doPut(req, resp);
-        // used for updating
+        int numb =500;
         StringBuilder stringBuilder = new StringBuilder();
         BufferedReader bufferedReader = req.getReader();
 
@@ -114,11 +119,17 @@ public class ExpenseReimbursementServlet extends HttpServlet {
         }
         String json = stringBuilder.toString();
         ExpenseReimbursements er = objectMapper.readValue(json, ExpenseReimbursements.class);
+        boolean checkER = service.checkER(er);
+//        System.out.println(8);
 //        System.out.println(er);
-        service.updateER(er);
+        if(checkER == true)
+        {
+            service.save(er);
+            numb = 200;
+        }
 
         resp.setContentType("Application/Json; Charset=UTF-8");
-        resp.setStatus(200);
+        resp.setStatus(numb);
 
     }
 
