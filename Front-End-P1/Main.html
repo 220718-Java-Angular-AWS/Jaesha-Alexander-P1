@@ -29,6 +29,7 @@
 
             <label > Password: </label><br> 
             <input type = "password" id = "password" name = "password">  
+            <br>
             <label> password must be a length of atleast 5 and must contain atleast 1 number </label>
             <br>
             <br>
@@ -73,7 +74,7 @@
             body: JSON.stringify(user) // has a body 
         });
 
-        alert(response.status);
+        // alert(response.status);
 
         if(response.status == 200)
         {

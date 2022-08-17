@@ -37,7 +37,7 @@
     <label for=" DeniedButton">Denied</label>
     <input type = "radio" id = "DeniedButton" name = "type" value = "Denied">
     <br>
-    <input type="submt" name="submit" id = "submit" value="Submit Change " onclick = "submitChange()">
+    <input type="submt" name="submit" id = "submit" value="Submit Change" onclick = "submitChange()">
     <input type = "submit" name = "back" id = "back" value="Back" onclick = "returnMain()">
 
 
@@ -152,14 +152,14 @@
     
                 if(responsePUT.status == 200)
                 {
-                    alert("UPDATED ER GO CHECK TABLE  ");
+                    alert("Edit Successful");
                     // // display updated ER's 
                     // displayListAgain();
                     location.reload()
                 }
                 else
                 {
-                    alert("ER UPDATE FAILED BREAD CRUMB TIME  ");
+                    alert("Edit Failed Try Again");
                 }
         }
         else

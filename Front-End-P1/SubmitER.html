@@ -14,6 +14,7 @@
     <!--DATE  -->
     <label> Enter Date: </label>
     <input type="text" id = "date" name = "date" >
+    <br>
     <label> date format: MM/dd/YYYY</label>
     <br>
 
@@ -104,10 +105,11 @@
             if(response.status == 200)
             {
                 alert("SUBMITTED EXPENSE REIMBURSEMENT SUCCESSFUL ");
+                location.reload();
             }
             else
             {
-                alert("SUBMITTED EXPENSE REIMBURSEMENT NOT SUCCESSFUL ");
+                alert("Submission failed try again");
             }
 
 

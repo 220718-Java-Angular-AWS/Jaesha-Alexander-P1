@@ -20,7 +20,7 @@
     <label> Input Id of expense reimbursement to cancel: </label>
     <input type="text" name = "erId" id = "erId">
     <br>
-    <input type="submt" name="submit" id = "submit" value="Cancel Expense Reimbursement" onclick = "cancelER()">
+    <input type="submt" name="submit" id = "submit" value="Cancel Reimbursement" onclick = "cancelER()">
     <input type = "submit" name = "back" id = "back" value="Back" onclick = "returnMain()">
 
     </body>
@@ -144,13 +144,13 @@
 
         if(responsePUT.status == 200)
         {
-            alert("UPDATED ER GO CHECK TABLE  ");
+            alert("Cancellation Success");
             // display updated ER's 
             location.reload()
         }
         else
         {
-            alert("ER UPDATE FAILED BREAD CRUMB TIME  ");
+            alert("Cancellation Unsucessful Try  Again");
         }
 
     };
